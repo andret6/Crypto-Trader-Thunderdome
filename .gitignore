@@ -1,0 +1,15 @@
+# Python cache / env
+__pycache__/
+*.pyc
+.env
+.env.*
+*.sqlite3
+
+# Bot runtime files
+wallets/
+data/
+nohup.out
+*.log
+
+# Streamlit assets not for commit
+assets/avatars/*.psd
