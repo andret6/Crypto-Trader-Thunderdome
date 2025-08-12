@@ -6,7 +6,6 @@ __pycache__/
 *.sqlite3
 
 # Bot runtime files
-data/
 nohup.out
 *.log
 
