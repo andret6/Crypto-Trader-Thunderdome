@@ -1,14 +1,14 @@
 {
-  "risk_tolerance": 0.03,
-  "target_cash_pct": 0.65,
+  "risk_tolerance": 0.02,
+  "target_cash_pct": 0.7,
   "max_positions": 1,
-  "min_liquidity_usd": 30000000.0,
+  "min_liquidity_usd": 35000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.99,
-  "exploration_rate": 0.003,
-  "stop_loss_bps": 40,
-  "take_profit_bps": 20,
+  "prefer_majors_weight": 0.95,
+  "exploration_rate": 0.002,
+  "stop_loss_bps": 30,
+  "take_profit_bps": 15,
   "token_biases": [],
-  "updated_at": "2025-08-12T16:59:54.250510+00:00",
+  "updated_at": "2025-08-12T18:04:40.482544+00:00",
   "updated_reason": "Adjusted for increased cash safety and reduced risk exposure in a volatile market."
 }
