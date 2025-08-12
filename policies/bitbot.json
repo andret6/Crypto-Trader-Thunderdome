@@ -1,23 +1,23 @@
 {
-  "risk_tolerance": 0.9,
+  "risk_tolerance": 0.95,
   "target_cash_pct": 0.01,
   "max_positions": 20,
-  "min_liquidity_usd": 40000000.0,
+  "min_liquidity_usd": 50000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.85,
-  "exploration_rate": 0.07,
-  "stop_loss_bps": 15,
-  "take_profit_bps": 2500,
+  "prefer_majors_weight": 0.9,
+  "exploration_rate": 0.05,
+  "stop_loss_bps": 10,
+  "take_profit_bps": 3000,
   "token_biases": [
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.35
+      "weight": 0.3
     },
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.4
+      "weight": 0.45
     },
     {
       "symbol": "XRP",
@@ -30,6 +30,6 @@
       "weight": 0.15
     }
   ],
-  "updated_at": "2025-08-12T15:08:19.469554+00:00",
-  "updated_reason": "validation_error"
+  "updated_at": "2025-08-12T15:24:32.106724+00:00",
+  "updated_reason": "Increased risk tolerance and major weight to capitalize on market momentum; tightened stop loss for better protection."
 }
