@@ -6,6 +6,7 @@ import glob
 import asyncio
 import requests
 import discord
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 SNAP_PATH = Path("data") / "snapshots.jsonl"
@@ -230,6 +231,28 @@ def format_report(rows):
             lines.append("• No crypto positions")
 
     return "\n".join(lines)
+  
+# function to push updates to the repo, to keep the streamlit app updated
+def git_push_updates():
+    try:
+        # Stage changes
+        subprocess.run(["git", "add", "data/snapshots.jsonl", "policies/"], check=True)
+        
+        # Check if anything is staged (git diff-index returns non-zero if staged changes)
+        diff = subprocess.run(["git", "diff", "--cached", "--quiet"])
+        if diff.returncode == 0:
+            print("[referee] No changes to commit.")
+            return
+        
+        # Commit
+        ts = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+        subprocess.run(["git", "commit", "-m", f"[referee] update snapshots & policies at {ts}"], check=True)
+        
+        # Push
+        subprocess.run(["git", "push"], check=True)
+        print("[referee] Changes pushed to GitHub.")
+    except subprocess.CalledProcessError as e:
+        print(f"[referee] Git push failed: {e}")
 
 # ========== Discord Bot ==========
 intents = discord.Intents.default()
@@ -267,6 +290,8 @@ async def referee_loop():
                         "usd_cash": float(usd),
                     }
                     w.write(json.dumps(rec) + "\n")
+            
+            git_push_updates()
 
         except Exception as e:
             print(f"⚠️ Referee loop error: {e}")

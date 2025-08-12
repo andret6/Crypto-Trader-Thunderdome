@@ -1,0 +1,35 @@
+{
+  "risk_tolerance": 0.8,
+  "target_cash_pct": 0.03,
+  "max_positions": 12,
+  "min_liquidity_usd": 9000000.0,
+  "momentum_window_days": 30,
+  "prefer_majors_weight": 0.75,
+  "exploration_rate": 0.15,
+  "stop_loss_bps": 60,
+  "take_profit_bps": 700,
+  "token_biases": [
+    {
+      "symbol": "ETH",
+      "id": null,
+      "weight": 0.45
+    },
+    {
+      "symbol": "BTC",
+      "id": null,
+      "weight": 0.35
+    },
+    {
+      "symbol": "XRP",
+      "id": null,
+      "weight": 0.1
+    },
+    {
+      "symbol": "LDO",
+      "id": null,
+      "weight": 0.1
+    }
+  ],
+  "updated_at": "2025-08-12T12:21:29.342400+00:00",
+  "updated_reason": "Increased risk tolerance and exploration rate to capitalize on market momentum; adjusted token biases to favor ETH more aggressively."
+}

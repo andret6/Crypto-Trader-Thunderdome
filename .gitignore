@@ -7,7 +7,6 @@ __pycache__/
 
 # Bot runtime files
 data/
-policies/
 nohup.out
 *.log
 

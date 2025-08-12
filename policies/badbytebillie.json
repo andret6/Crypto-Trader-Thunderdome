@@ -1,0 +1,14 @@
+{
+  "risk_tolerance": 0.95,
+  "target_cash_pct": 0.03,
+  "max_positions": 12,
+  "min_liquidity_usd": 5000000.0,
+  "momentum_window_days": 45,
+  "prefer_majors_weight": 0.65,
+  "exploration_rate": 0.3,
+  "stop_loss_bps": 100,
+  "take_profit_bps": 800,
+  "token_biases": [],
+  "updated_at": "2025-08-12T12:21:22.529633+00:00",
+  "updated_reason": "Increased risk tolerance and exploration rate to match market volatility; adjusted cash and liquidity for more aggressive trading."
+}
