@@ -30,6 +30,6 @@
       "weight": 0.1
     }
   ],
-  "updated_at": "2025-08-12T16:38:33.437690+00:00",
-  "updated_reason": "Adjusted for market conditions; increased BTC weight and take profit for higher gains, while tightening stop loss for better risk management."
+  "updated_at": "2025-08-12T16:54:07.243033+00:00",
+  "updated_reason": "validation_error"
 }
