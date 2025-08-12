@@ -1,35 +1,35 @@
 {
-  "risk_tolerance": 0.95,
-  "target_cash_pct": 0.01,
-  "max_positions": 20,
-  "min_liquidity_usd": 100000000.0,
-  "momentum_window_days": 30,
-  "prefer_majors_weight": 0.9,
-  "exploration_rate": 0.05,
-  "stop_loss_bps": 4,
-  "take_profit_bps": 5000,
+  "risk_tolerance": 0.9,
+  "target_cash_pct": 0.02,
+  "max_positions": 15,
+  "min_liquidity_usd": 150000000.0,
+  "momentum_window_days": 45,
+  "prefer_majors_weight": 0.85,
+  "exploration_rate": 0.07,
+  "stop_loss_bps": 3,
+  "take_profit_bps": 6000,
   "token_biases": [
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.45
+      "weight": 0.4
     },
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.45
+      "weight": 0.4
     },
     {
       "symbol": "XRP",
       "id": null,
-      "weight": 0.05
+      "weight": 0.1
     },
     {
       "symbol": "LDO",
       "id": null,
-      "weight": 0.05
+      "weight": 0.1
     }
   ],
-  "updated_at": "2025-08-12T17:24:57.369754+00:00",
-  "updated_reason": "Increased risk tolerance and max positions to capitalize on bullish momentum; adjusted weights for majors to reflect market dominance."
+  "updated_at": "2025-08-12T17:41:17.507514+00:00",
+  "updated_reason": "Adjusted for a more aggressive stance in a bullish market while maintaining a safety net with tighter stop losses."
 }
