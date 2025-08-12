@@ -4,16 +4,6 @@
 # 1) Historical chart of bot wallet valuations using a snapshots file (JSON Lines)
 # 2) Bot profile cards with bios and avatar images
 # 3) A configurable link/button for users to request access to the private Discord server
-#
-# Minimal setup:
-# - Place this file at the repo root (or in a /web folder) and run:  streamlit run streamlit_app.py
-# - Create a snapshots file at data/snapshots.jsonl (one JSON per line; see README note)
-# - Put bot avatar images in ./assets/avatars/ (filenames set below)
-# - Optional: set env var DISCORD_JOIN_URL to control the join-request link
-#
-# Optional live valuation fallback:
-# - If there's no snapshots file yet, we can still show current valuations if wallet JSONs exist,
-#   provided COINGECKO_API_KEY is set. We'll hit the simple/price endpoint for spot USD quotes.
 
 from __future__ import annotations
 import os
@@ -27,6 +17,7 @@ import pandas as pd
 import plotly.express as px
 import requests
 from pathlib import Path
+import functools
 
 # -----------------------------
 # Config
@@ -35,6 +26,9 @@ SNAPSHOTS_PATH = os.environ.get("SNAPSHOTS_PATH", "data/snapshots.jsonl")
 WALLETS_DIR = os.environ.get("WALLETS_DIR", "wallets")
 DISCORD_JOIN_URL = os.environ.get("DISCORD_JOIN_URL", "https://docs.google.com/forms/d/e/1FAIpQLSfZbORwXHKLODc1SBuETqtkpw4_CJK3tfT5q6tFrpPQCVgN9A/viewform?usp=header")
 COINGECKO_API_KEY = os.environ.get("COINGECKO_API_KEY")
+POLICY_BASE_URL = os.environ.get("POLICY_BASE_URL") 
+SNAPSHOTS_URL   = os.environ.get("SNAPSHOTS_URL")
+
 
 BOT_PROFILES = {
     # bot_key must match the names used in snapshots (e.g., "bitbot", "maxibit", "bearbot", "badbytebillie")
@@ -63,6 +57,38 @@ BOT_PROFILES = {
 # -----------------------------
 # Helpers
 # -----------------------------
+
+@st.cache_data(ttl=30)
+def _http_get_text(url: str) -> str | None:
+    try:
+        r = requests.get(url, timeout=10)
+        r.raise_for_status()
+        return r.text
+    except Exception:
+        return None
+
+def _read_policy_live(bot_key: str) -> dict | None:
+    if not POLICY_BASE_URL:
+        return None
+    url = f"{POLICY_BASE_URL}/{bot_key.lower()}.json"
+    txt = _http_get_text(url)
+    if not txt:
+        return None
+    try:
+        return json.loads(txt)
+    except Exception:
+        return None
+
+def _read_policy(bot_key: str) -> dict | None:
+    pol = _read_policy_live(bot_key)
+    if pol is not None:
+        return pol
+    # fallback to local file if running locally
+    path = os.path.join("policies", f"{bot_key.lower()}.json")
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return None
 
 def _read_snapshots(path: str) -> Optional[pd.DataFrame]:
     if not os.path.exists(path):
@@ -290,7 +316,6 @@ for bot in bot_names:
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.info(f"{bot.title()} has no crypto holdings yet.")
-
 
 # ---- Join link ----
 st.subheader("Request access to the private Discord server")
