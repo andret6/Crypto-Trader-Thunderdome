@@ -1,23 +1,23 @@
 {
-  "risk_tolerance": 0.85,
-  "target_cash_pct": 0.02,
-  "max_positions": 15,
-  "min_liquidity_usd": 10000000.0,
+  "risk_tolerance": 0.9,
+  "target_cash_pct": 0.01,
+  "max_positions": 20,
+  "min_liquidity_usd": 15000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.8,
-  "exploration_rate": 0.1,
-  "stop_loss_bps": 50,
-  "take_profit_bps": 800,
+  "prefer_majors_weight": 0.85,
+  "exploration_rate": 0.05,
+  "stop_loss_bps": 40,
+  "take_profit_bps": 1000,
   "token_biases": [
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.4
+      "weight": 0.35
     },
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.35
+      "weight": 0.4
     },
     {
       "symbol": "XRP",
@@ -30,6 +30,6 @@
       "weight": 0.15
     }
   ],
-  "updated_at": "2025-08-12T12:35:31.661563+00:00",
-  "updated_reason": "Adjusted risk and cash allocation to reflect confidence in current market trends and increased focus on major coins."
+  "updated_at": "2025-08-12T12:51:08.522727+00:00",
+  "updated_reason": "Increased risk tolerance and max positions to capitalize on market momentum, while slightly reducing cash target for more aggressive trading."
 }

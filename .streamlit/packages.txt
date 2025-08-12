@@ -1,1 +1,0 @@
--f ./streamlit_requirements.txt
