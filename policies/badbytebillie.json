@@ -1,14 +1,14 @@
 {
-  "risk_tolerance": 0.95,
-  "target_cash_pct": 0.03,
-  "max_positions": 12,
-  "min_liquidity_usd": 5000000.0,
-  "momentum_window_days": 45,
-  "prefer_majors_weight": 0.65,
-  "exploration_rate": 0.3,
-  "stop_loss_bps": 100,
-  "take_profit_bps": 800,
+  "risk_tolerance": 0.98,
+  "target_cash_pct": 0.02,
+  "max_positions": 15,
+  "min_liquidity_usd": 6000000.0,
+  "momentum_window_days": 30,
+  "prefer_majors_weight": 0.7,
+  "exploration_rate": 0.25,
+  "stop_loss_bps": 150,
+  "take_profit_bps": 900,
   "token_biases": [],
-  "updated_at": "2025-08-12T12:21:22.529633+00:00",
-  "updated_reason": "Increased risk tolerance and exploration rate to match market volatility; adjusted cash and liquidity for more aggressive trading."
+  "updated_at": "2025-08-12T13:07:31.327190+00:00",
+  "updated_reason": "Increased risk tolerance and max positions to capitalize on market momentum; adjusted liquidity and profit parameters for better performance."
 }
