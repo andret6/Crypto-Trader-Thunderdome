@@ -6,7 +6,6 @@ __pycache__/
 *.sqlite3
 
 # Bot runtime files
-wallets/
 data/
 policies/
 nohup.out
