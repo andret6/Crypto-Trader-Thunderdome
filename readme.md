@@ -11,18 +11,24 @@ This proof-of-concept deploys **four LangChain-powered trader bots** plus a **Re
 
 - Each bot has its own deploy script so tokens can be managed per-process. Trader bots are defined in `agents.py` while the referee is defined and deployed to discord in `define_deploy_referee.py`
 
+```
 python deploy_j_bit_bot.py       # Bitbot  (uses DISCORD_BOT_TOKEN)
 python deploy_maxibit_bot.py     # Maxibit (uses DISCORD_BOT_TOKEN_2)
 python deploy_bear_bot.py        # Bearbot (uses DISCORD_BOT_TOKEN_3)
 python deploy_badbytebillie.py   # B^3     (uses DISCORD_BOT_TOKEN_4)
 python define_deploy_referee.py  # Referee (uses DISCORD_BOT_TOKEN_5)
+```
 
 Default chat model is `gpt-4o-mini` via LangChain’s ChatOpenAI. You can change it in `agents.py`.
 
 Wallet state is file-backed under ./wallets (auto-created). Add wallets/ to .gitignore, or don't, the money isn't real who cares.
 
 ## Bots
-- **Bitbot** (Jordan Belfort-ish), **Maxibit** (ice-cream bitcoin maxi), **Bearbot** (risk-averse bear), **BadByteBillie** (deadpan risk-tolerant), plus a **Referee** announcer.
+- **Bitbot** (Jordan Belfort-ish) 
+- **Maxibit** (ice-cream bitcoin maxi)
+- **Bearbot** (risk-averse bear)
+- **BadByteBillie** (deadpan risk-tolerant)
+- **Referee** announcer.
 
 ## Requirements
 `pip install -U langchain langchain-openai langchain-community discord.py python-dotenv requests pydantic pandas`
