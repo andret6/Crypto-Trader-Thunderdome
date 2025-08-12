@@ -10,6 +10,8 @@ import os
 import discord
 from agents import EXECUTORS, set_request_context
 import re
+from policy_adjuster import adjust_policy
+from policy_helper_functions import load_policy
 
 TOKEN = os.getenv("DISCORD_BOT_TOKEN_3")                
 AGENT_NAME = os.getenv("AGENT_NAME", "bearbot") # Aka, BEARBOT       
@@ -149,8 +151,6 @@ async def small_talk_loop():
                     print(f"⚠️ 'small_talk' tool not found for agent {AGENT_NAME}")
         await asyncio.sleep(delay)
 
-
-
 @client.event
 async def on_error(event, *args, **kwargs):
     import traceback
@@ -165,6 +165,45 @@ async def send_to_default_channel(content: str):
                 await channel.send(content)
                 return
 
+# Define additional parameters for adjusting bot behavior in the autotrade loop
+BOT_NAME = AGENT_NAME
+PERSONA = """You are risk averse and conservative in finacial advice. Bear like, in the financial sense."""
+
+def _pnl_summary_from_wallet(bot_name: str) -> str:
+    # tiny helper: summarize last few trades
+    from agent_helper_functions import _load_wallet, _pretty_money
+    w = _load_wallet(bot_name)
+    tl = list(w.get("trade_log", []))[-5:]
+    if not tl:
+        return "no trades yet"
+    parts = []
+    for t in tl:
+        parts.append(f"{t['side']} {t['symbol']} {t['qty']:.4f} @ {_pretty_money(t['px'])}")
+    return " | ".join(parts)
+
+def _market_snapshot_compact() -> dict:
+    # small, self-contained snapshot using the same CG endpoint as agents
+    from agent_helper_functions import _request_with_retry, CG_BASE
+    params = {
+        "vs_currency": "usd",
+        "order": "market_cap_desc",
+        "per_page": 20,
+        "page": 1,
+        "price_change_percentage": "1h,24h,7d",
+    }
+    data = _request_with_retry(f"{CG_BASE}/coins/markets", params)
+    # keep just a few fields to keep the prompt small
+    return [
+        {
+            "id": r.get("id"),
+            "sym": (r.get("symbol") or "").upper(),
+            "price": r.get("current_price"),
+            "chg_24h": r.get("price_change_percentage_24h_in_currency"),
+            "vol": r.get("total_volume"),
+            "mcap": r.get("market_cap"),
+        } for r in data
+    ]
+
 async def autotrade_loop():
     await client.wait_until_ready()
     tools = EXECUTORS[AGENT_NAME].tools
@@ -177,27 +216,32 @@ async def autotrade_loop():
 
     while not client.is_closed():
         try:
-            # get interval (no tools needed here, but safe to allow)
-            set_request_context(source="scheduler", allow_tools=True)
-            ivl = get_ivl.invoke({}) if get_ivl else 3600
-            sleep_s = max(60, int(float(ivl) * random.uniform(0.9, 1.1)))
+            # --- self-tune policy each cycle (updates policies/{bot}.json) ---
+            market = _market_snapshot_compact()
+            pnl = _pnl_summary_from_wallet(BOT_NAME)
+            adjust_policy(BOT_NAME, PERSONA, market, pnl)
 
-            # run one auto trade
+            # --- run one auto trade (current tool still uses persona policy) ---
             set_request_context(source="scheduler", allow_tools=True)
             if auto_once:
                 result = auto_once.invoke({})
                 await send_to_default_channel(result if isinstance(result, str) else str(result))
 
-            # brag/commiserate is read-only, but harmless either way
+            # --- optional brag/cope ---
             set_request_context(source="scheduler", allow_tools=False)
-            if brag_cope and random.random() < 0.33:
+            if brag_cope and random.random() < 0.15:
                 note = brag_cope.invoke({})
                 await send_to_default_channel(note if isinstance(note, str) else str(note))
 
+            # --- persona-based interval with small jitter ---
+            ivl = get_ivl.invoke({}) if get_ivl else 3600
+            sleep_s = max(60, int(float(ivl) * random.uniform(0.9, 1.1)))
+
         except Exception as e:
             print(f"[autotrade_loop] error: {e}")
-        await asyncio.sleep(sleep_s)
+            sleep_s = 90  # brief backoff
 
+        await asyncio.sleep(sleep_s)
 
 @client.event
 async def setup_hook():

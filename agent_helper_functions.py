@@ -295,3 +295,32 @@ def _spot_price_usd(coin_id: str) -> float:
         return float(raw[0].get("current_price") or 0.0)
     return float("nan")
 
+# ======= Prompting bots to explain their choices ===
+# ===================================================
+# --- Persona + policy context for explanations ---
+def _persona_desc(bot: str) -> str:
+    b = bot.lower()
+    if "bitbot" in b:
+        return "Jordan Belfort-style, cocky momentum chaser who chases liquidity and velocity."
+    if "maxibit" in b:
+        return "Bitcoin maxi who prefers BTC/ETH unless alts clearly outperform; smug but analytical."
+    if "bearbot" in b:
+        return "Cautious, risk-averse, capital preservation first; trims losers and adds on strength carefully."
+    if "badbytebillie" in b:
+        return "Dry, deadpan, trend-riding with snark; will press winners and cut laggards quickly."
+    return "Pragmatic crypto trader."
+
+def _policy_brief(bot: str) -> str:
+    # Best-effort read; OK if policies aren’t set up yet
+    try:
+        from policy_helper_functions import load_policy
+        p = load_policy(bot)
+        return (
+            f"risk_tolerance={p.risk_tolerance:.2f}, cash={p.target_cash_pct:.2f}, "
+            f"max_pos={p.max_positions}, min_liq_usd={int(p.min_liquidity_usd):,}, "
+            f"prefer_majors={p.prefer_majors_weight:.2f}, stop={p.stop_loss_bps}bps, "
+            f"take={p.take_profit_bps}bps"
+        )
+    except Exception:
+        return "no explicit policy file; using persona defaults"
+

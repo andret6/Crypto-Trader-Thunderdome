@@ -21,18 +21,19 @@ import json
 from datetime import datetime
 from dataclasses import dataclass
 from typing import Dict, List, Optional
-
+from policy_helper_functions import load_policy
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import requests
+from pathlib import Path
 
 # -----------------------------
 # Config
 # -----------------------------
 SNAPSHOTS_PATH = os.environ.get("SNAPSHOTS_PATH", "data/snapshots.jsonl")
 WALLETS_DIR = os.environ.get("WALLETS_DIR", "wallets")
-DISCORD_JOIN_URL = os.environ.get("DISCORD_JOIN_URL", "https://example.com/join-request")
+DISCORD_JOIN_URL = os.environ.get("DISCORD_JOIN_URL", "https://docs.google.com/forms/d/e/1FAIpQLSfZbORwXHKLODc1SBuETqtkpw4_CJK3tfT5q6tFrpPQCVgN9A/viewform?usp=header")
 COINGECKO_API_KEY = os.environ.get("COINGECKO_API_KEY")
 
 BOT_PROFILES = {
@@ -173,6 +174,22 @@ def _estimate_current_from_wallets(wallets: Dict[str, dict]) -> Optional[pd.Data
         })
     return pd.DataFrame(rows)
 
+def load_wallet(bot_name):
+    wallet_path = Path(f"wallets/{bot_name}.json")
+    return json.loads(wallet_path.read_text())
+
+def get_portfolio_composition(bot_name):
+    w = load_wallet(bot_name)
+    balances = w.get("balances", {})
+    usd_val = balances.get("USD", 0.0)
+    
+    # Remove USD from composition; we're focusing on crypto assets
+    crypto_assets = {k: v for k, v in balances.items() if k != "USD" and v > 0}
+    total_val = usd_val
+    
+    # mark to market if possible
+    # Here you could pull spot prices if you want live values instead of qty
+    return crypto_assets
 
 # -----------------------------
 # UI
@@ -234,6 +251,46 @@ for i, (key, meta) in enumerate(BOT_PROFILES.items()):
         else:
             st.markdown(f"**{meta.get('display', key)}**")
         st.write(meta.get("bio", ""))
+
+# ---- Bot risk policies ----
+# They should change over time...
+
+st.header("🤖 Bot Policies")
+bot_names = ["bitbot", "maxibit", "bearbot", "badbytebillie"]  # adjust as needed
+
+for bot in bot_names:
+    try:
+        policy = load_policy(bot)
+        st.subheader(f"{bot.title()} Policy")
+        st.json(policy.dict() if hasattr(policy, "dict") else policy)
+    except FileNotFoundError:
+        st.warning(f"No saved policy found for {bot}.")
+
+# ---- Bot current holdings ----
+# ---- Bot current holdings ----
+st.header("📊 Portfolio Composition")
+
+for bot in bot_names:
+    assets = get_portfolio_composition(bot)  # dict like {"ETH": 0.42, "LINK": 12.3}
+    if assets:
+        df = pd.DataFrame({
+            "Asset": list(assets.keys()),
+            "Amount": list(assets.values())
+        })
+        # Optional: show percentages in hover
+        df["Percent"] = df["Amount"] / df["Amount"].sum() * 100.0
+
+        fig = px.pie(
+            df,
+            names="Asset",
+            values="Amount",
+            title=f"{bot.title()} — Portfolio Composition",
+            hover_data={"Percent": ":.2f"}
+        )
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.info(f"{bot.title()} has no crypto holdings yet.")
+
 
 # ---- Join link ----
 st.subheader("Request access to the private Discord server")

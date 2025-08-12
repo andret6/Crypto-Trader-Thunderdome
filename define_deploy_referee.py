@@ -222,7 +222,7 @@ def format_report(rows):
     lines.append(f"🏆 Highest total: **{winner}** | 🫠 Lowest total: **{loser}**")
 
     for bot, total, usd, detail in rows:
-        lines.append(f"\n**{bot}** — Total: {pretty_money(total)}  (USD: {pretty_money(usd)})")
+        lines.append(f"\n**{bot}** — Total: {pretty_money(total)}  \nUSD - Cash: {pretty_money(usd)}")
         if detail:
             for sym, q, px, val in detail:
                 lines.append(f"• {sym}: {q:.6f} × {pretty_money(px)} = {pretty_money(val)}")
@@ -272,6 +272,22 @@ async def referee_loop():
             print(f"⚠️ Referee loop error: {e}")
 
         await asyncio.sleep(POST_EVERY)
+
+@client.event
+async def on_message(message):
+    # Ignore messages from the bot itself
+    if message.author == client.user:
+        return
+
+    # Check if the bot is mentioned
+    if client.user.mentioned_in(message):
+        try:
+            rows = await compute_leaderboard()
+            report = format_report(rows)
+            await message.channel.send(report)
+        except Exception as e:
+            await message.channel.send(f"⚠️ Could not fetch leaderboard: {e}")
+
 
 @client.event
 async def setup_hook():

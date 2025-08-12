@@ -8,12 +8,34 @@ from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-
 import os, time, re, math, json, calendar
 from datetime import datetime, timezone
 import requests
 import contextvars
 from agent_helper_functions import *
+from agent_helper_functions import (
+    _tools_allowed,
+    _parse_month_year_window,
+    _parse_year_window,
+    _avg_from_prices,
+    _pretty_money,
+    _decide_intent,
+    _cg_headers,
+    _refresh_coins_cache,
+    _request_with_retry,
+    _search_and_cache,
+    _resolve_ids,
+    _safe_mentions_from_text,
+    _cg_market_chart_range,
+    _parse_time_horizon,
+    _wallet_path,
+    _init_wallet,
+    _load_wallet,
+    _save_wallet,
+    _spot_price_usd,
+    _persona_desc,
+    _policy_brief
+)
 
 # ==============================
 # Tools
@@ -362,6 +384,7 @@ def make_wallet_tools(executor: AgentExecutor, bot_name: str):
         if "bitbot" in name: return 15 * 60
         if "maxibit" in name: return 30 * 60
         if "badbytebillie" in name: return 45 * 60
+        if 'bearbot' in name: return 60 * 60
         return 60 * 60
     
     # ---------- Helpers for persona-aware auto-trading (inside make_wallet_tools) ----------
@@ -389,6 +412,30 @@ def make_wallet_tools(executor: AgentExecutor, bot_name: str):
 
     def _wallet_hold_qty(sym: str, w: dict) -> float:
         return float(w["balances"].get(sym.upper(), 0.0) or 0.0)
+  
+    def _dynamic_policy_or_fallback(bot_name: str) -> dict:
+        # Map BotPolicy -> the dict keys auto_trade_once expects today.
+        try:
+            from policy_helper_functions import load_policy
+            p = load_policy(bot_name)
+            # simple heuristics to map to current knobs:
+            buy_usd = max(50, int(100 + 400 * p.risk_tolerance))
+            sell_frac = min(0.4, 0.05 + 0.3 * p.risk_tolerance)
+            prefer = set([tb.symbol for tb in p.token_biases if tb.symbol]) or ({"BTC","ETH"} if p.prefer_majors_weight >= 0.7 else set())
+            allow_alts = p.prefer_majors_weight < 0.9
+            min_m24_buy = 0.1 if p.risk_tolerance >= 0.7 else 0.3
+            max_m24_sell = -0.8 if p.risk_tolerance >= 0.7 else -0.4
+            return dict(
+                min_vol_usd=float(p.min_liquidity_usd),
+                buy_usd=buy_usd,
+                sell_frac=sell_frac,
+                prefer=prefer,
+                allow_alts=allow_alts,
+                min_m24_buy=min_m24_buy,
+                max_m24_sell=max_m24_sell,
+            )
+        except Exception:
+            return _persona_policy(bot_name)
 
     def _persona_policy(name: str) -> dict:
         """
@@ -463,7 +510,7 @@ def make_wallet_tools(executor: AgentExecutor, bot_name: str):
           return {"error": "tools not allowed for this message"}
         
         w = _load_wallet(bot_name)
-        policy = _persona_policy(bot_name)
+        policy = _dynamic_policy_or_fallback(bot_name)
 
         # 1) Load universe
         try:
@@ -519,11 +566,46 @@ def make_wallet_tools(executor: AgentExecutor, bot_name: str):
             if sell_qty <= 0:
                 return f"{bot_name}: no {sym} to sell."
             res = trade_market.invoke({"side": "SELL", "symbol": sym, "qty": sell_qty})
+        
+        exp = explain_trade.invoke({"side": side, "symbol": sym, "reason": reason, "m24": float(m24)})
 
-        return f"{bot_name}: {reason}. {res}"
-
-    return [get_wallet, portfolio_value, trade_market, brag_or_commiserate,
-            get_autotrade_interval, auto_trade_once]
+        return f"{bot_name}: {reason}. {res}\n{exp}"
+    
+    @tool
+    def explain_trade(side: str, symbol: str, reason: str, m24: float) -> str:
+        """One-sentence, in-character explanation of the latest trade decision."""
+        if not _tools_allowed():
+            return f"{bot_name}: tools not allowed for this message"
+    
+        persona = _persona_desc(bot_name)
+        policy  = _policy_brief(bot_name)
+    
+        # Keep it cheap and snappy
+        llm = ChatOpenAI(model=os.getenv("TRADE_EXPLAIN_MODEL", "gpt-4o-mini"), temperature=0.6, max_tokens=60)
+    
+        prompt = (
+            "You are a crypto trading bot. Write ONE short sentence, in character, explaining this trade.\n"
+            f"Persona: {persona}\n"
+            f"Current self-tuned policy (brief): {policy}\n"
+            f"Trade: {side.upper()} {symbol.upper()}\n"
+            f"24h momentum: {m24:+.2f}%\n"
+            f"Reason summary: {reason}\n"
+            "Constraints: One sentence only. No hashtags. Be specific but concise."
+        )
+        try:
+            return llm.invoke(prompt).content.strip()
+        except Exception as e:
+            return f"{bot_name}: {reason} (explain fallback: {e})"
+  
+    return [
+        get_wallet,
+        portfolio_value,
+        trade_market,
+        brag_or_commiserate,
+        get_autotrade_interval,
+        auto_trade_once,
+        explain_trade,
+    ]
 
 def make_action_tools(executor: AgentExecutor):
     @tool
