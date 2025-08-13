@@ -9,6 +9,6 @@
   "stop_loss_bps": 150,
   "take_profit_bps": 10000,
   "token_biases": [],
-  "updated_at": "2025-08-13T00:43:20.040322+00:00",
-  "updated_reason": "Adjusted for market momentum and increased liquidity; slight shift towards majors reflects current trends."
+  "updated_at": "2025-08-13T01:26:46.235755+00:00",
+  "updated_reason": "validation_error"
 }
