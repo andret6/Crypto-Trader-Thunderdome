@@ -1,14 +1,14 @@
 {
-  "risk_tolerance": 0.01,
-  "target_cash_pct": 0.95,
+  "risk_tolerance": 0.02,
+  "target_cash_pct": 0.9,
   "max_positions": 1,
   "min_liquidity_usd": 100000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.98,
-  "exploration_rate": 5e-05,
+  "prefer_majors_weight": 0.99,
+  "exploration_rate": 0.0001,
   "stop_loss_bps": 5,
-  "take_profit_bps": 1,
+  "take_profit_bps": 2,
   "token_biases": [],
-  "updated_at": "2025-08-13T06:46:04.166594+00:00",
-  "updated_reason": "Adjusted parameters to be more conservative, increasing cash target and reducing risk exposure."
+  "updated_at": "2025-08-13T09:56:07.189726+00:00",
+  "updated_reason": "Adjusted take profit to capture more gains while maintaining a conservative approach; increased prefer_majors_weight for stability."
 }
