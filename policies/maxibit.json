@@ -1,13 +1,13 @@
 {
-  "risk_tolerance": 0.85,
+  "risk_tolerance": 0.9,
   "target_cash_pct": 0.01,
-  "max_positions": 5,
+  "max_positions": 6,
   "min_liquidity_usd": 6000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.9,
+  "prefer_majors_weight": 0.95,
   "exploration_rate": 0.1,
   "stop_loss_bps": 150,
-  "take_profit_bps": 7000,
+  "take_profit_bps": 8000,
   "token_biases": [
     {
       "symbol": "BTC",
@@ -15,6 +15,6 @@
       "weight": 0.99
     }
   ],
-  "updated_at": "2025-08-12T23:38:20.864195+00:00",
-  "updated_reason": "Adjusted prefer_majors_weight to favor BTC more, increased take_profit_bps to capture higher gains."
+  "updated_at": "2025-08-13T00:08:20.778426+00:00",
+  "updated_reason": "Increased risk tolerance and take profit to align with bullish market trends, while maintaining strong bias towards BTC."
 }
