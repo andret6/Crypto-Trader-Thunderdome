@@ -1,25 +1,25 @@
 {
-  "risk_tolerance": 0.01,
-  "target_cash_pct": 0.93,
+  "risk_tolerance": 0.02,
+  "target_cash_pct": 0.92,
   "max_positions": 1,
   "min_liquidity_usd": 100000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.96,
-  "exploration_rate": 5e-05,
-  "stop_loss_bps": 0,
-  "take_profit_bps": 0,
+  "prefer_majors_weight": 0.95,
+  "exploration_rate": 0.0001,
+  "stop_loss_bps": 100,
+  "take_profit_bps": 200,
   "token_biases": [
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.6
+      "weight": 0.55
     },
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.4
+      "weight": 0.45
     }
   ],
-  "updated_at": "2025-08-13T15:01:45.759256+00:00",
-  "updated_reason": "Adjusted for increased cash safety and reduced risk exposure due to market volatility."
+  "updated_at": "2025-08-13T15:57:42.815889+00:00",
+  "updated_reason": "Adjusted risk tolerance and stop loss to reflect a more conservative approach while maintaining focus on major assets."
 }
