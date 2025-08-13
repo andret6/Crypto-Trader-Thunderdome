@@ -9,6 +9,6 @@
   "stop_loss_bps": 150,
   "take_profit_bps": 10000,
   "token_biases": [],
-  "updated_at": "2025-08-13T11:27:10.978936+00:00",
+  "updated_at": "2025-08-13T12:13:29.469712+00:00",
   "updated_reason": "validation_error"
 }
