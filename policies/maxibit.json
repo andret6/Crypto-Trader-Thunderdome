@@ -20,6 +20,6 @@
   "buy_usd": 350,
   "sell_frac": 0.1,
   "min_trade_usd": 25,
-  "updated_at": "2025-08-15T14:07:01.077420+00:00",
-  "updated_reason": "Adjusted prefer_majors_weight to favor Bitcoin more, increased buy_usd to collect more Bitcoin."
+  "updated_at": "2025-08-15T14:39:44.350671+00:00",
+  "updated_reason": "validation_error"
 }
