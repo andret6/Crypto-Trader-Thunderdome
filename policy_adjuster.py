@@ -73,6 +73,13 @@ def _sanitize(proposed: dict) -> dict:
     if "min_trade_usd" in out:    out["min_trade_usd"]    = int(clamp(out["min_trade_usd"], 1, 500) or 25)
     if "min_m24_buy" in out:      out["min_m24_buy"]      = clamp(out["min_m24_buy"], -20, 20)
     if "max_m24_sell" in out:     out["max_m24_sell"]     = clamp(out["max_m24_sell"], -20, 20)
+    if "prefer_majors_weight" in out: out["prefer_majors_weight"] = clamp(out["prefer_majors_weight"], 0, 1)
+    if "exploration_rate" in out:     out["exploration_rate"]     = clamp(out["exploration_rate"], 0, 1)
+    if "stop_loss_bps" in out:        out["stop_loss_bps"]        = int(clamp(out["stop_loss_bps"], 0, 5000) or 0)
+    if "take_profit_bps" in out:      out["take_profit_bps"]      = int(clamp(out["take_profit_bps"], 0, 10000) or 0)
+    if "momentum_window_days" in out: out["momentum_window_days"] = int(clamp(out["momentum_window_days"], 1, 365) or 30)
+    if "max_positions" in out:        out["max_positions"]        = int(clamp(out["max_positions"], 1, 20) or 8)
+    if "min_liquidity_usd" in out:    out["min_liquidity_usd"]    = max(0.0, float(out["min_liquidity_usd"] or 0.0))
     if "token_biases" in out and isinstance(out["token_biases"], list):
         cleaned = []
         seen = set()
@@ -112,8 +119,11 @@ def adjust_policy(bot_name: str, persona: str, market_snapshot: Dict[str, Any], 
 
     try:
         updated = BotPolicy(**{**current.model_dump(exclude={"updated_at","updated_reason"}), **safe})
+    except ValidationError as e:
+        msg = e.errors()[0].get("msg", "validation_error")
+        save_policy(bot_name, current, reason=f"validation_error: {msg[:200]}")
+        return current
     except Exception:
-        # invalid fields -> keep current
         save_policy(bot_name, current, reason="validation_error")
         return current
 

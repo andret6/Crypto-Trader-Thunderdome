@@ -292,31 +292,6 @@ for bot in bot_names:
     except FileNotFoundError:
         st.warning(f"No saved policy found for {bot}.")
 
-# ---- Bot current holdings ----
-# ---- Bot current holdings ----
-st.header("📊 Portfolio Composition")
-
-for bot in bot_names:
-    assets = get_portfolio_composition(bot)  # dict like {"ETH": 0.42, "LINK": 12.3}
-    if assets:
-        df = pd.DataFrame({
-            "Asset": list(assets.keys()),
-            "Amount": list(assets.values())
-        })
-        # Optional: show percentages in hover
-        df["Percent"] = df["Amount"] / df["Amount"].sum() * 100.0
-
-        fig = px.pie(
-            df,
-            names="Asset",
-            values="Amount",
-            title=f"{bot.title()} — Portfolio Composition",
-            hover_data={"Percent": ":.2f"}
-        )
-        st.plotly_chart(fig, use_container_width=True)
-    else:
-        st.info(f"{bot.title()} has no crypto holdings yet.")
-
 # ---- Join link ----
 st.subheader("Request access to the private Discord server")
 st.write("Want to watch the bots live, ask questions, or propose challenges?")
