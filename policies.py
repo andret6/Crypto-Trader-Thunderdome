@@ -7,7 +7,7 @@ from typing import List, Optional
 class TokenBias(BaseModel):
     symbol: Optional[str] = None  # e.g., "ETH"
     id: Optional[str] = None      # e.g., "ethereum"
-    weight: float = Field(ge=0, le=1)
+    weight: float = Field(0.5, ge=0, le=1)
 
 class BotPolicy(BaseModel):
     risk_tolerance: float = Field(0.5, ge=0, le=1)
@@ -20,6 +20,14 @@ class BotPolicy(BaseModel):
     stop_loss_bps: int = Field(150, ge=0, le=5000)
     take_profit_bps: int = Field(300, ge=0, le=10000)
     token_biases: List[TokenBias] = Field(default_factory=list)
+    
+    # Additional buy sell parameters
+    min_m24_buy: float = Field(0.30, ge=-20, le=20)   # momentum threshold to BUY
+    max_m24_sell: float = Field(-0.60, ge=-20, le=20) # momentum threshold to SELL/trim
+    buy_usd: int = Field(150, ge=5, le=10_000)        # default buy size
+    sell_frac: float = Field(0.10, ge=0, le=1)        # fraction to trim on sell signal
+    min_trade_usd: int = Field(25, ge=1, le=500)      # floor to avoid dust
+    
     # metadata (not modifiable by model)
     updated_at: Optional[str] = None
     updated_reason: Optional[str] = None

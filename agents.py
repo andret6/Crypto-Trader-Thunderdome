@@ -418,21 +418,23 @@ def make_wallet_tools(executor: AgentExecutor, bot_name: str):
         try:
             from policy_helper_functions import load_policy
             p = load_policy(bot_name)
-            # simple heuristics to map to current knobs:
-            buy_usd = max(50, int(100 + 400 * p.risk_tolerance))
-            sell_frac = min(0.4, 0.05 + 0.3 * p.risk_tolerance)
-            prefer = set([tb.symbol for tb in p.token_biases if tb.symbol]) or ({"BTC","ETH"} if p.prefer_majors_weight >= 0.7 else set())
-            allow_alts = p.prefer_majors_weight < 0.9
-            min_m24_buy = 0.1 if p.risk_tolerance >= 0.7 else 0.3
-            max_m24_sell = -0.8 if p.risk_tolerance >= 0.7 else -0.4
+            buy_usd = int(p.buy_usd or max(50, int(100 + 400 * p.risk_tolerance)))
+            sell_frac = float(p.sell_frac if p.sell_frac is not None else (0.05 + 0.3 * p.risk_tolerance))
+            sell_frac = min(0.4, max(0.01, sell_frac))
+            min_m24_buy = float(p.min_m24_buy if p.min_m24_buy is not None else (0.1 if p.risk_tolerance >= 0.7 else 0.3))
+            max_m24_sell = float(p.max_m24_sell if p.max_m24_sell is not None else (-0.8 if p.risk_tolerance >= 0.7 else -0.4))
+            min_trade_usd = int(getattr(p, "min_trade_usd", 25))
+            
             return dict(
                 min_vol_usd=float(p.min_liquidity_usd),
                 buy_usd=buy_usd,
                 sell_frac=sell_frac,
-                prefer=prefer,
-                allow_alts=allow_alts,
+                prefer=set([tb.symbol for tb in p.token_biases if tb.symbol]) or ({"BTC","ETH"} if p.prefer_majors_weight >= 0.7 else set()),
+                allow_alts=p.prefer_majors_weight < 0.9,
                 min_m24_buy=min_m24_buy,
                 max_m24_sell=max_m24_sell,
+                min_trade_usd=min_trade_usd,
+                target_cash_pct=float(p.target_cash_pct),  # include so the trader can keep a reserve
             )
         except Exception:
             return _persona_policy(bot_name)
@@ -448,16 +450,16 @@ def make_wallet_tools(executor: AgentExecutor, bot_name: str):
         """
         n = name.lower()
         if "bitbot" in n:
-            return dict(min_vol_usd=20_000_000, buy_usd=200, sell_frac=0.12, prefer=set(), allow_alts=True,
+            return dict(min_vol_usd=2_000_000, buy_usd=200, sell_frac=0.12, prefer=set(), allow_alts=True,
                         min_m24_buy=+0.5, max_m24_sell=-1.0)
         if "maxibit" in n:
-            return dict(min_vol_usd=15_000_000, buy_usd=150, sell_frac=0.10, prefer={"BTC"}, allow_alts=True,
+            return dict(min_vol_usd=5_000_000, buy_usd=150, sell_frac=0.10, prefer={"BTC"}, allow_alts=True,
                         min_m24_buy=+0.2, max_m24_sell=-1.0)
         if "bearbot" in n:
-            return dict(min_vol_usd=25_000_000, buy_usd=75, sell_frac=0.10, prefer={"BTC","ETH"}, allow_alts=False,
+            return dict(min_vol_usd=10_000_000, buy_usd=75, sell_frac=0.10, prefer={"BTC","ETH"}, allow_alts=True,
                         min_m24_buy=+0.1, max_m24_sell=-0.5)
         if "badbytebillie" in n:
-            return dict(min_vol_usd=10_000_000, buy_usd=250, sell_frac=0.20, prefer=set(), allow_alts=True,
+            return dict(min_vol_usd=1_000_000, buy_usd=250, sell_frac=0.20, prefer=set(), allow_alts=True,
                         min_m24_buy=+0.3, max_m24_sell=-0.8)
         return dict(min_vol_usd=15_000_000, buy_usd=100, sell_frac=0.10, prefer=set(), allow_alts=True,
                     min_m24_buy=+0.2, max_m24_sell=-1.0)
@@ -514,7 +516,7 @@ def make_wallet_tools(executor: AgentExecutor, bot_name: str):
 
         # 1) Load universe
         try:
-            markets = _cg_top_universe(limit=100)
+            markets = _cg_top_universe(limit=200)
         except Exception as e:
             return f"{bot_name}: failed to load market universe ({e})."
 
@@ -558,18 +560,68 @@ def make_wallet_tools(executor: AgentExecutor, bot_name: str):
                 return f"{bot_name}: no strong signal (best={sym}, 24h {m24:+.2f}%). Skipping."
 
         # 6) Execute via your paper trade tool
+        total_val, pos_detail = _mark_wallet(w)  # already available in this scope
+        cash = float(w["balances"].get("USD", 0.0) or 0.0)
+        reserve = max(0.0, float(policy.get("target_cash_pct", 0.2)) * total_val)
+        avail_cash = max(0.0, cash - reserve)
+        
         if side == "BUY":
-            res = trade_market.invoke({"side": "BUY", "symbol": sym, "usd_notional": policy["buy_usd"]})
+            desired = float(policy["buy_usd"])
+            notional = min(desired, avail_cash)
+        
+            if notional < float(policy.get("min_trade_usd", 25)):
+                # Try selling to fund the buy: pick worst-momentum/low-preference holding
+                holdings = {s.upper(): (q, px) for s, q, px, val in pos_detail}  # from _mark_wallet
+                # Join with market snapshot to get 24h momentum for held symbols
+                m24_by_sym = {m["_SYM"]: (m["_M24"] or 0.0, m["_P"]) for m in markets}
+                ranked = []
+                for hs, (hq, hpx) in holdings.items():
+                    m24_h, cur_px = m24_by_sym.get(hs, (0.0, hpx))
+                    prefer_boost = 0.0 if (policy["prefer"] and hs in policy["prefer"]) else 0.2
+                    ranked.append((m24_h - prefer_boost, hs, hq, (cur_px or hpx)))
+                ranked.sort()  # worst first
+        
+                needed = desired - avail_cash
+                sell_msgs = []
+                for _score, hs, hq, hpx in ranked:
+                    if needed <= 0: break
+                    max_sell_qty = max(0.0, hq * float(policy["sell_frac"]))
+                    qty_for_needed = needed / max(hpx, 1e-9)
+                    sell_qty = min(max_sell_qty, qty_for_needed)
+                    if sell_qty > 0:
+                        res_sell = trade_market.invoke({"side": "SELL", "symbol": hs, "qty": sell_qty})
+                        sell_msgs.append(res_sell)
+                        # refresh wallet + cash
+                        w = _load_wallet(bot_name)
+                        total_val, pos_detail = _mark_wallet(w)
+                        cash = float(w["balances"].get("USD", 0.0) or 0.0)
+                        avail_cash = max(0.0, cash - max(0.0, float(policy.get("target_cash_pct", 0.2)) * total_val))
+                        needed = max(0.0, desired - avail_cash)
+        
+                notional = min(desired, avail_cash)
+        
+                if notional < float(policy.get("min_trade_usd", 25)):
+                    return f"{bot_name}: {reason}. No cash after reserve; trimmed positions but still < min trade."
+        
+                res_buy = trade_market.invoke({"side": "BUY", "symbol": sym, "usd_notional": notional})
+                joined = " | ".join(sell_msgs + [res_buy]) if sell_msgs else res_buy
+                return f"{bot_name}: {reason}. {joined}"
+        
+            # Have enough to buy right away
+            res = trade_market.invoke({"side": "BUY", "symbol": sym, "usd_notional": notional})
+            return f"{bot_name}: {reason}. {res}"
+        
         else:
-            # sell a fraction of holding; floor to avoid dust
-            sell_qty = max(0.0, hold_qty * policy["sell_frac"])
+            hold_qty = _wallet_hold_qty(sym, w)
+            sell_qty = max(0.0, hold_qty * float(policy["sell_frac"]))
             if sell_qty <= 0:
                 return f"{bot_name}: no {sym} to sell."
             res = trade_market.invoke({"side": "SELL", "symbol": sym, "qty": sell_qty})
+            return f"{bot_name}: {reason}. {res}"
         
-        exp = explain_trade.invoke({"side": side, "symbol": sym, "reason": reason, "m24": float(m24)})
+        #exp = explain_trade.invoke({"side": side, "symbol": sym, "reason": reason, "m24": float(m24)})
 
-        return f"{bot_name}: {reason}. {res}\n{exp}"
+        #return f"{bot_name}: {reason}. {res}\n{exp}"
     
     @tool
     def explain_trade(side: str, symbol: str, reason: str, m24: float) -> str:
