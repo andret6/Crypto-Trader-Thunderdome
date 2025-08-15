@@ -1,13 +1,13 @@
 {
-  "risk_tolerance": 0.02,
+  "risk_tolerance": 0.03,
   "target_cash_pct": 0.95,
   "max_positions": 1,
   "min_liquidity_usd": 100000000.0,
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.99,
   "exploration_rate": 0.0001,
-  "stop_loss_bps": 80,
-  "take_profit_bps": 70,
+  "stop_loss_bps": 100,
+  "take_profit_bps": 60,
   "token_biases": [
     {
       "symbol": "BTC",
@@ -20,11 +20,11 @@
       "weight": 0.3
     }
   ],
-  "min_m24_buy": -0.5,
-  "max_m24_sell": -0.2,
+  "min_m24_buy": -1.0,
+  "max_m24_sell": -0.5,
   "buy_usd": 20,
   "sell_frac": 0.01,
   "min_trade_usd": 20,
-  "updated_at": "2025-08-15T16:38:52.547318+00:00",
-  "updated_reason": "Adjusted risk tolerance and cash allocation to reflect a more conservative approach in a bearish market."
+  "updated_at": "2025-08-15T17:38:05.386682+00:00",
+  "updated_reason": "Adjusted stop_loss_bps for increased protection and reduced take_profit_bps to align with conservative strategy."
 }
