@@ -9,6 +9,11 @@
   "stop_loss_bps": 150,
   "take_profit_bps": 10000,
   "token_biases": [],
-  "updated_at": "2025-08-13T16:45:53.481794+00:00",
+  "min_m24_buy": 0.3,
+  "max_m24_sell": -0.6,
+  "buy_usd": 150,
+  "sell_frac": 0.1,
+  "min_trade_usd": 25,
+  "updated_at": "2025-08-15T12:36:11.338044+00:00",
   "updated_reason": "validation_error"
 }
