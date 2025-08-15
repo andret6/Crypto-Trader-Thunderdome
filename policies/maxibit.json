@@ -20,6 +20,6 @@
   "buy_usd": 700,
   "sell_frac": 0.1,
   "min_trade_usd": 25,
-  "updated_at": "2025-08-15T19:33:23.235754+00:00",
-  "updated_reason": "Adjusted risk tolerance slightly lower to favor more conservative trades while increasing max positions to capitalize on potential BTC accumulation."
+  "updated_at": "2025-08-15T20:05:52.437730+00:00",
+  "updated_reason": "validation_error"
 }
