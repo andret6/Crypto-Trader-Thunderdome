@@ -20,6 +20,6 @@
   "buy_usd": 400,
   "sell_frac": 0.1,
   "min_trade_usd": 25,
-  "updated_at": "2025-08-15T15:09:58.906238+00:00",
-  "updated_reason": "Increased risk tolerance to favor more aggressive Bitcoin accumulation while maintaining a strong bias towards major coins."
+  "updated_at": "2025-08-15T15:37:30.929585+00:00",
+  "updated_reason": "validation_error"
 }
