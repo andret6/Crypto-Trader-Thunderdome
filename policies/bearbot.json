@@ -1,30 +1,30 @@
 {
-  "risk_tolerance": 0.03,
+  "risk_tolerance": 0.02,
   "target_cash_pct": 0.95,
   "max_positions": 1,
   "min_liquidity_usd": 100000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.99,
+  "prefer_majors_weight": 0.98,
   "exploration_rate": 0.0001,
-  "stop_loss_bps": 100,
-  "take_profit_bps": 60,
+  "stop_loss_bps": 150,
+  "take_profit_bps": 50,
   "token_biases": [
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.7
+      "weight": 0.75
     },
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.3
+      "weight": 0.25
     }
   ],
-  "min_m24_buy": -1.0,
-  "max_m24_sell": -0.5,
-  "buy_usd": 20,
+  "min_m24_buy": -2.0,
+  "max_m24_sell": -1.0,
+  "buy_usd": 10,
   "sell_frac": 0.01,
-  "min_trade_usd": 20,
-  "updated_at": "2025-08-15T17:38:05.386682+00:00",
-  "updated_reason": "Adjusted stop_loss_bps for increased protection and reduced take_profit_bps to align with conservative strategy."
+  "min_trade_usd": 10,
+  "updated_at": "2025-08-15T18:40:36.062480+00:00",
+  "updated_reason": "Adjusted risk tolerance lower and increased cash percentage to align with conservative strategy; reduced take profit and increased stop loss for safer trading."
 }
