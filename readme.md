@@ -1,6 +1,6 @@
 # Crypto Trader Thunderdome (PoC)
 
-This proof-of-concept deploys **four LangChain-powered trader bots** plus a **Referee** into a private Discord server. The bots compete to grow a simulated $10,000 USD wallet, answer crypto questions, and talk a little smack. Prices and market stats come from CoinGecko Pro. The Referee posts periodic leaderboards. Visit the dashboard here[https://crypto-bot-thunderdome-proof-of-concept.streamlit.app/].
+This proof-of-concept deploys **four LangChain-powered trader bots** plus a **Referee** into a private Discord server. The bots compete to grow a simulated $10,000 USD wallet, answer crypto questions, and talk a little smack. Prices and market stats come from CoinGecko Pro. The Referee posts periodic leaderboards. Visit the dashboard [here](https://crypto-bot-thunderdome-proof-of-concept.streamlit.app/).
 
 ## How it works
 - Bots make simulated trades and answer crypto questions and route to CoinGecko Pro tools for current price, history windows, and market stats.

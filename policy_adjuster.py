@@ -1,4 +1,3 @@
-# policy_adjuster.py
 from typing import Dict, Any
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
@@ -14,6 +13,33 @@ SYSTEM = """You are a trading policy tuner for a specific bot.
 Only output JSON matching the provided schema. Do not include prose.
 You may tweak parameters within reasonable bounds to fit persona and market.
 """
+
+SCHEMA_HINT = {
+  "risk_tolerance": "float 0..1",
+  "target_cash_pct": "float 0..1",
+  "max_positions": "int 1..20",
+  "min_liquidity_usd": "float >=0",
+  "momentum_window_days": "int 1..365",
+  "prefer_majors_weight": "float 0..1",
+  "exploration_rate": "float 0..1",
+  "stop_loss_bps": "int 0..5000",
+  "take_profit_bps": "int 0..10000",
+  "token_biases": "array(max=12) of {symbol?:UPPER_STR, id?:lower_str, weight:0.0..1.0}",  
+  "min_m24_buy": "float 0..20",
+  "max_m24_sell": "float -20..0",
+  "buy_usd": "int 5..10000",
+  "sell_frac": "float 0..1",
+  "min_trade_usd": "int 1..500",
+  "updated_reason": "str <= 280 chars"
+}
+
+def _json(obj: object) -> str:
+    # Stable JSON for LLMs
+    return json.dumps(obj, ensure_ascii=False, separators=(",", ":"), indent=2)
+
+def _escape_braces(s: str) -> str:
+    # Prevent Python .format from treating JSON braces as placeholders
+    return s.replace("{", "{{").replace("}", "}}")
 
 TEMPLATE = ChatPromptTemplate.from_messages([
     ("system", SYSTEM),
@@ -40,25 +66,6 @@ JSON schema (keys/types, not a validator):
 """)
 ])
 
-SCHEMA_HINT = {
-  "risk_tolerance": "float 0..1",
-  "target_cash_pct": "float 0..1",
-  "max_positions": "int 1..20",
-  "min_liquidity_usd": "float >=0",
-  "momentum_window_days": "int 1..365",
-  "prefer_majors_weight": "float 0..1",
-  "exploration_rate": "float 0..1",
-  "stop_loss_bps": "int 0..5000",
-  "take_profit_bps": "int 0..10000",
-  "token_biases": "list of {symbol?:str,id?:str,weight:0..1}",  # <- fixed
-  "min_m24_buy": "float -20..20",
-  "max_m24_sell": "float -20..20",
-  "buy_usd": "int 5..10000",
-  "sell_frac": "float 0..1",
-  "min_trade_usd": "int 1..500",
-  "updated_reason": "str <= 280 chars"
-}
-
 ALLOWED = set(BotPolicy.model_fields.keys()) - {"updated_at", "updated_reason"}
 
 def _sanitize(proposed: dict) -> dict:
@@ -72,8 +79,8 @@ def _sanitize(proposed: dict) -> dict:
     if "sell_frac" in out:        out["sell_frac"]        = clamp(out["sell_frac"], 0, 1)
     if "buy_usd" in out:          out["buy_usd"]          = int(clamp(out["buy_usd"], 5, 10_000) or 150)
     if "min_trade_usd" in out:    out["min_trade_usd"]    = int(clamp(out["min_trade_usd"], 1, 500) or 25)
-    if "min_m24_buy" in out:      out["min_m24_buy"]      = clamp(out["min_m24_buy"], -20, 20)
-    if "max_m24_sell" in out:     out["max_m24_sell"]     = clamp(out["max_m24_sell"], -20, 20)
+    if "min_m24_buy" in out:      out["min_m24_buy"]      = clamp(out["min_m24_buy"], 0, 20)
+    if "max_m24_sell" in out:     out["max_m24_sell"]     = clamp(out["max_m24_sell"], -20, 0)
     if "prefer_majors_weight" in out: out["prefer_majors_weight"] = clamp(out["prefer_majors_weight"], 0, 1)
     if "exploration_rate" in out:     out["exploration_rate"]     = clamp(out["exploration_rate"], 0, 1)
     if "stop_loss_bps" in out:        out["stop_loss_bps"]        = int(clamp(out["stop_loss_bps"], 0, 5000) or 0)
@@ -131,7 +138,7 @@ def adjust_policy(bot_name: str, persona: str, market_snapshot: Dict[str, Any], 
 {persona}
 
 Current policy (JSON):
-{current.model_dump(exclude={{"updated_at", "updated_reason"}})}
+{current.model_dump(exclude={"updated_at", "updated_reason"})}
 
 Recent PnL (last N trades):
 {pnl_summary}
@@ -144,6 +151,7 @@ Instructions:
 - Keep values within human-like ranges; avoid extreme flips unless justified.
 - Prefer sparse changes; include a short 'updated_reason'.
 - Output JSON ONLY with the same keys as current_policy; omit metadata fields if present.
+- Output valid JSON only. Use arrays, not Python tuples/sets.
 
 JSON schema (keys/types, not a validator):
 {SCHEMA_HINT}
@@ -154,7 +162,22 @@ JSON schema (keys/types, not a validator):
     prev_error = None
     for attempt in range(1, MAX_RETRIES + 1):
         # 1) ask LLM (with feedback if retry)
-        msgs = _format_messages(prev_error)
+        #msgs = _format_messages(prev_error) # Previous method
+        #raw = _llm.invoke(msgs).content
+        
+        # New method forces message content in json format using the helper functions above
+        current_json = _escape_braces(_json(current.model_dump(exclude={"updated_at","updated_reason"})))
+        market_json  = _escape_braces(_json(market_snapshot))
+        schema_json  = _escape_braces(_json(SCHEMA_HINT))
+        pnl_text     = str(pnl_summary)  # keep simple text
+        
+        msgs = TEMPLATE.format_messages(
+            persona=persona,
+            current_policy=current_json,
+            pnl_summary=pnl_text,
+            market_snapshot=market_json,
+            schema_hint=schema_json,
+        )
         raw = _llm.invoke(msgs).content
 
         # 2) parse -> sanitize -> validate
