@@ -429,8 +429,9 @@ def make_wallet_tools(executor: AgentExecutor, bot_name: str):
                 min_vol_usd=float(p.min_liquidity_usd),
                 buy_usd=buy_usd,
                 sell_frac=sell_frac,
-                prefer=set([tb.symbol for tb in p.token_biases if tb.symbol]) or ({"BTC","ETH"} if p.prefer_majors_weight >= 0.7 else set()),
-                allow_alts=p.prefer_majors_weight < 0.9,
+                prefer = prefer,
+                #allow_alts=p.prefer_majors_weight < 0.9,
+                allow_alts = allow_alts,
                 min_m24_buy=min_m24_buy,
                 max_m24_sell=max_m24_sell,
                 min_trade_usd=min_trade_usd,
@@ -453,10 +454,10 @@ def make_wallet_tools(executor: AgentExecutor, bot_name: str):
             return dict(min_vol_usd=2_000_000, buy_usd=200, sell_frac=0.12, prefer=set(), allow_alts=True,
                         min_m24_buy=+0.5, max_m24_sell=-1.0)
         if "maxibit" in n:
-            return dict(min_vol_usd=5_000_000, buy_usd=150, sell_frac=0.10, prefer={"BTC"}, allow_alts=True,
+            return dict(min_vol_usd=5_000_000, buy_usd=150, sell_frac=0.10, prefer=("BTC"), allow_alts=True,
                         min_m24_buy=+0.2, max_m24_sell=-1.0)
         if "bearbot" in n:
-            return dict(min_vol_usd=10_000_000, buy_usd=75, sell_frac=0.10, prefer={"BTC","ETH"}, allow_alts=True,
+            return dict(min_vol_usd=10_000_000, buy_usd=75, sell_frac=0.10, prefer=("BTC","ETH"), allow_alts=True,
                         min_m24_buy=+0.1, max_m24_sell=-0.5)
         if "badbytebillie" in n:
             return dict(min_vol_usd=1_000_000, buy_usd=250, sell_frac=0.20, prefer=set(), allow_alts=True,

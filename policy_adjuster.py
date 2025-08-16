@@ -6,6 +6,7 @@ from policies import BotPolicy
 from policy_helper_functions import load_policy, save_policy
 from pydantic import ValidationError
 import json
+from typing import Optional
 
 _llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
 
@@ -115,7 +116,7 @@ def adjust_policy(bot_name: str, persona: str, market_snapshot: Dict[str, Any], 
                 pass
         return s
 
-    def _format_messages(prev_error: str | None):
+    def _format_messages(prev_error: Optional[str]):
         sys = SYSTEM
         if prev_error:
             sys += (
