@@ -1,0 +1,35 @@
+{
+  "risk_tolerance": 0.9,
+  "target_cash_pct": 0.05,
+  "max_positions": 8,
+  "min_liquidity_usd": 4000000.0,
+  "momentum_window_days": 30,
+  "prefer_majors_weight": 0.65,
+  "exploration_rate": 0.25,
+  "stop_loss_bps": 150,
+  "take_profit_bps": 500,
+  "token_biases": [
+    {
+      "symbol": "ETH",
+      "id": null,
+      "weight": 0.4
+    },
+    {
+      "symbol": "BTC",
+      "id": null,
+      "weight": 0.4
+    },
+    {
+      "symbol": "XRP",
+      "id": null,
+      "weight": 0.2
+    }
+  ],
+  "min_m24_buy": 0.6,
+  "max_m24_sell": -0.3,
+  "buy_usd": 250,
+  "sell_frac": 0.2,
+  "min_trade_usd": 75,
+  "updated_at": "2025-08-16T13:47:43.821926+00:00",
+  "updated_reason": "Increased risk tolerance and exploration rate to match market volatility; adjusted cash and position limits for more aggressive trading."
+}

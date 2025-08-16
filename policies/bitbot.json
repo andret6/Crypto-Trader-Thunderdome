@@ -1,0 +1,40 @@
+{
+  "risk_tolerance": 0.7,
+  "target_cash_pct": 0.1,
+  "max_positions": 7,
+  "min_liquidity_usd": 7000000.0,
+  "momentum_window_days": 30,
+  "prefer_majors_weight": 0.65,
+  "exploration_rate": 0.25,
+  "stop_loss_bps": 150,
+  "take_profit_bps": 450,
+  "token_biases": [
+    {
+      "symbol": "BTC",
+      "id": null,
+      "weight": 0.35
+    },
+    {
+      "symbol": "ETH",
+      "id": null,
+      "weight": 0.25
+    },
+    {
+      "symbol": "XRP",
+      "id": null,
+      "weight": 0.25
+    },
+    {
+      "symbol": "LINK",
+      "id": null,
+      "weight": 0.15
+    }
+  ],
+  "min_m24_buy": 0.5,
+  "max_m24_sell": -0.4,
+  "buy_usd": 300,
+  "sell_frac": 0.1,
+  "min_trade_usd": 100,
+  "updated_at": "2025-08-16T13:47:50.680704+00:00",
+  "updated_reason": "Adjusted for higher risk tolerance and increased focus on major coins due to current market conditions."
+}
