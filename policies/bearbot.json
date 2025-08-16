@@ -1,13 +1,13 @@
 {
-  "risk_tolerance": 0.02,
+  "risk_tolerance": 0.01,
   "target_cash_pct": 0.95,
   "max_positions": 1,
   "min_liquidity_usd": 100000000.0,
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.99,
   "exploration_rate": 0.0001,
-  "stop_loss_bps": 250,
-  "take_profit_bps": 5,
+  "stop_loss_bps": 300,
+  "take_profit_bps": 3,
   "token_biases": [
     {
       "symbol": "BTC",
@@ -20,11 +20,11 @@
       "weight": 0.15
     }
   ],
-  "min_m24_buy": -20.0,
-  "max_m24_sell": -10.0,
+  "min_m24_buy": -15.0,
+  "max_m24_sell": -5.0,
   "buy_usd": 5,
   "sell_frac": 0.005,
   "min_trade_usd": 5,
-  "updated_at": "2025-08-16T00:34:15.256652+00:00",
-  "updated_reason": "Increased stop loss to reduce risk exposure while maintaining conservative strategy."
+  "updated_at": "2025-08-16T01:31:38.855053+00:00",
+  "updated_reason": "Adjusted risk tolerance lower and tightened stop loss and take profit to align with conservative strategy in a bearish market."
 }
