@@ -97,37 +97,99 @@ def _sanitize(proposed: dict) -> dict:
     return out
 
 def adjust_policy(bot_name: str, persona: str, market_snapshot: Dict[str, Any], pnl_summary: str) -> BotPolicy:
-    # 1) load current
     current = load_policy(bot_name)
-    # 2) ask LLM for updated JSON
-    msg = TEMPLATE.format_messages(
-        persona=persona,
-        current_policy=current.model_dump(exclude={"updated_at", "updated_reason"}),
-        pnl_summary=pnl_summary,
-        market_snapshot=market_snapshot,
-        schema_hint=SCHEMA_HINT,
-    )
-    raw = _llm.invoke(msg).content
-    # 3) parse+validate (clamp by Pydantic)
-    try:
-        proposed = json.loads(raw)
-        safe = _sanitize(proposed if isinstance(proposed, dict) else {})
-    except Exception:
-        # fallback: keep current, stamp reason
-        save_policy(bot_name, current, reason="parse_error")
-        return current
 
-    try:
-        updated = BotPolicy(**{**current.model_dump(exclude={"updated_at","updated_reason"}), **safe})
-    except ValidationError as e:
-        msg = e.errors()[0].get("msg", "validation_error")
-        save_policy(bot_name, current, reason=f"validation_error: {msg[:200]}")
-        return current
-    except Exception:
-        save_policy(bot_name, current, reason="validation_error")
-        return current
+    def _clean_json_string(s: str) -> str:
+        s = (s or "").strip()
+        # strip code fences if present
+        if s.startswith("```"):
+            parts = s.split("```")
+            if len(parts) >= 2:
+                s = parts[1].strip()
+        # if the model wrapped JSON in prose, try to extract the first {...} block
+        if not s.startswith("{"):
+            try:
+                start = s.index("{"); end = s.rindex("}") + 1
+                s = s[start:end]
+            except Exception:
+                pass
+        return s
 
-    # 4) save and return
-    reason = (proposed.get("updated_reason") or "self-tune") if isinstance(proposed, dict) else "self-tune"
-    save_policy(bot_name, updated, reason=reason)
-    return updated
+    def _format_messages(prev_error: str | None):
+        sys = SYSTEM
+        if prev_error:
+            sys += (
+                "\nIMPORTANT:\n"
+                "- Your last output failed (see error below). Respond with VALID JSON ONLY.\n"
+                "- Do NOT include markdown fences, comments, or prose.\n"
+                f"- ERROR: {prev_error}\n"
+            )
+        return ChatPromptTemplate.from_messages([
+            ("system", sys),
+            ("user", f"""Persona:
+{persona}
+
+Current policy (JSON):
+{current.model_dump(exclude={{"updated_at", "updated_reason"}})}
+
+Recent PnL (last N trades):
+{pnl_summary}
+
+Market snapshot (top coins with % change, volume, dominance hints):
+{market_snapshot}
+
+Instructions:
+- Update parameters to reflect persona and market.
+- Keep values within human-like ranges; avoid extreme flips unless justified.
+- Prefer sparse changes; include a short 'updated_reason'.
+- Output JSON ONLY with the same keys as current_policy; omit metadata fields if present.
+
+JSON schema (keys/types, not a validator):
+{SCHEMA_HINT}
+""")
+        ]).format_messages()
+
+    MAX_RETRIES = 5
+    prev_error = None
+    for attempt in range(1, MAX_RETRIES + 1):
+        # 1) ask LLM (with feedback if retry)
+        msgs = _format_messages(prev_error)
+        raw = _llm.invoke(msgs).content
+
+        # 2) parse -> sanitize -> validate
+        try:
+            raw_s = _clean_json_string(raw)
+            proposed = json.loads(raw_s)
+        except Exception as e:
+            prev_error = f"json decode error: {str(e)[:180]}"
+            continue
+
+        try:
+            safe = _sanitize(proposed if isinstance(proposed, dict) else {})
+        except Exception as e:
+            prev_error = f"sanitize error: {str(e)[:180]}"
+            continue
+
+        try:
+            updated = BotPolicy(**{
+                **current.model_dump(exclude={"updated_at", "updated_reason"}),
+                **safe
+            })
+        except ValidationError as e:
+            # capture the first pydantic error for feedback
+            first = e.errors()[0] if e.errors() else {"msg": str(e)}
+            prev_error = f"validation error: {first.get('msg','unknown')[:180]}"
+            continue
+        except Exception as e:
+            prev_error = f"unexpected validate error: {str(e)[:180]}"
+            continue
+
+        # 3) success → save and return (only successful writes update reason/timestamp)
+        reason = (proposed.get("updated_reason") if isinstance(proposed, dict) else None) or "self-tune"
+        reason = reason.strip()[:280] if isinstance(reason, str) else "self-tune"
+        save_policy(bot_name, updated, reason=reason if reason else "self-tune")
+        return updated
+
+    # All retries failed → keep current policy, do not overwrite reason/timestamp
+    print(f"[{bot_name}] policy update failed after {MAX_RETRIES} attempts: {prev_error}")
+    return current

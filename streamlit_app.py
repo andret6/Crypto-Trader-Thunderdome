@@ -223,7 +223,7 @@ def get_portfolio_composition(bot_name):
 st.set_page_config(page_title="Crypto Trader Thunderdome", page_icon="💥", layout="wide")
 
 st.title("💥 Crypto Trader Thunderdome — Dashboard")
-st.caption("Live(ish) paper‑trading tournament. Spot prices via CoinGecko Pro. Not financial advice.")
+st.caption("Live(ish) paper‑trading tournament. Spot prices via CoinGecko Pro. Proof of concept design, not even beta yet. Not financial advice.")
 
 # ---- Chart section ----
 st.subheader("Wallet valuations over time (USD)")
