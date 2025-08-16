@@ -1,25 +1,25 @@
 {
-  "risk_tolerance": 0.75,
-  "target_cash_pct": 0.05,
-  "max_positions": 6,
-  "min_liquidity_usd": 5000000.0,
+  "risk_tolerance": 0.8,
+  "target_cash_pct": 0.03,
+  "max_positions": 5,
+  "min_liquidity_usd": 6000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.8,
-  "exploration_rate": 0.15,
-  "stop_loss_bps": 150,
-  "take_profit_bps": 450,
+  "prefer_majors_weight": 0.85,
+  "exploration_rate": 0.1,
+  "stop_loss_bps": 120,
+  "take_profit_bps": 500,
   "token_biases": [
     {
       "symbol": "BTC",
       "id": "bitcoin",
-      "weight": 0.85
+      "weight": 0.9
     }
   ],
-  "min_m24_buy": 0.5,
-  "max_m24_sell": -0.5,
-  "buy_usd": 300,
+  "min_m24_buy": 0.6,
+  "max_m24_sell": -0.4,
+  "buy_usd": 400,
   "sell_frac": 0.1,
   "min_trade_usd": 50,
-  "updated_at": "2025-08-16T14:17:10.002301+00:00",
-  "updated_reason": "Increased BTC bias and risk tolerance to align with preference for accumulating Bitcoin."
+  "updated_at": "2025-08-16T14:50:07.002565+00:00",
+  "updated_reason": "Adjusted parameters to favor more bitcoin accumulation while maintaining a balanced approach."
 }
