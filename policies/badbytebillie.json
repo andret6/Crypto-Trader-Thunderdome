@@ -1,23 +1,23 @@
 {
-  "risk_tolerance": 0.95,
-  "target_cash_pct": 0.03,
-  "max_positions": 10,
-  "min_liquidity_usd": 5000000.0,
+  "risk_tolerance": 0.98,
+  "target_cash_pct": 0.02,
+  "max_positions": 12,
+  "min_liquidity_usd": 6000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.7,
-  "exploration_rate": 0.3,
-  "stop_loss_bps": 100,
-  "take_profit_bps": 600,
+  "prefer_majors_weight": 0.65,
+  "exploration_rate": 0.35,
+  "stop_loss_bps": 80,
+  "take_profit_bps": 700,
   "token_biases": [
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.35
+      "weight": 0.3
     },
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.35
+      "weight": 0.4
     },
     {
       "symbol": "XRP",
@@ -25,11 +25,11 @@
       "weight": 0.3
     }
   ],
-  "min_m24_buy": 0.7,
-  "max_m24_sell": -0.2,
-  "buy_usd": 300,
-  "sell_frac": 0.25,
-  "min_trade_usd": 100,
-  "updated_at": "2025-08-16T14:32:29.240317+00:00",
-  "updated_reason": "Adjusted for higher risk tolerance and market conditions, favoring majors and increasing exploration."
+  "min_m24_buy": 0.8,
+  "max_m24_sell": -0.1,
+  "buy_usd": 400,
+  "sell_frac": 0.2,
+  "min_trade_usd": 150,
+  "updated_at": "2025-08-16T15:16:22.508341+00:00",
+  "updated_reason": "Adjusted for higher risk tolerance and market conditions; increased exploration and profit targets."
 }
