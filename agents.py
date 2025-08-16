@@ -514,6 +514,15 @@ def make_wallet_tools(executor: AgentExecutor, bot_name: str):
         w = _load_wallet(bot_name)
         policy = _dynamic_policy_or_fallback(bot_name)
 
+        # harden against old set/list shapes
+        # why? Because after changing format in later updates, SOMETIMES, older version seem to sneak in
+        pref = policy.get("prefer", ())
+        if isinstance(pref, set):
+            policy["prefer"] = tuple(sorted(pref))
+        elif isinstance(pref, list):
+            policy["prefer"] = tuple(pref)
+
+
         # 1) Load universe
         try:
             markets = _cg_top_universe(limit=200)
