@@ -20,6 +20,6 @@
   "buy_usd": 3000,
   "sell_frac": 0.1,
   "min_trade_usd": 25,
-  "updated_at": "2025-08-16T09:40:22.032961+00:00",
-  "updated_reason": "Increased risk tolerance and major preference to align with bias towards BTC amidst market conditions."
+  "updated_at": "2025-08-16T10:07:48.158150+00:00",
+  "updated_reason": "validation_error"
 }
