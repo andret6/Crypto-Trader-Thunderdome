@@ -1,13 +1,13 @@
 {
-  "risk_tolerance": 0.85,
+  "risk_tolerance": 0.9,
   "target_cash_pct": 0.01,
   "max_positions": 6,
   "min_liquidity_usd": 7000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.98,
+  "prefer_majors_weight": 0.99,
   "exploration_rate": 0.1,
   "stop_loss_bps": 100,
-  "take_profit_bps": 950,
+  "take_profit_bps": 1000,
   "token_biases": [
     {
       "symbol": "BTC",
@@ -17,9 +17,9 @@
   ],
   "min_m24_buy": 0.8,
   "max_m24_sell": -0.2,
-  "buy_usd": 900,
+  "buy_usd": 1000,
   "sell_frac": 0.1,
   "min_trade_usd": 50,
-  "updated_at": "2025-08-16T17:16:26.941117+00:00",
-  "updated_reason": "Adjusted take profit to favor higher returns while maintaining a strong bias towards BTC."
+  "updated_at": "2025-08-16T17:44:14.192122+00:00",
+  "updated_reason": "Increased risk tolerance to favor more aggressive Bitcoin accumulation; adjusted take profit to capture gains more effectively."
 }
