@@ -1,5 +1,5 @@
 {
-  "risk_tolerance": 0.01,
+  "risk_tolerance": 0.02,
   "target_cash_pct": 0.95,
   "max_positions": 1,
   "min_liquidity_usd": 300000000.0,
@@ -14,6 +14,6 @@
   "buy_usd": 5,
   "sell_frac": 0.0001,
   "min_trade_usd": 100,
-  "updated_at": "2025-08-17T18:47:20.143082+00:00",
-  "updated_reason": "Adjusted risk tolerance lower to reflect conservative approach; kept other parameters stable for cautious trading."
+  "updated_at": "2025-08-17T19:44:19.516899+00:00",
+  "updated_reason": "Increased risk tolerance slightly to adapt to market conditions while maintaining a conservative stance."
 }
