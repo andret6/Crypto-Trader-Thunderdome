@@ -2,8 +2,8 @@
   "risk_tolerance": 0.95,
   "target_cash_pct": 0.01,
   "max_positions": 20,
-  "min_liquidity_usd": 90000000000.0,
-  "momentum_window_days": 30,
+  "min_liquidity_usd": 150000000000.0,
+  "momentum_window_days": 45,
   "prefer_majors_weight": 0.85,
   "exploration_rate": 0.15,
   "stop_loss_bps": 2,
@@ -34,7 +34,7 @@
   "max_m24_sell": -0.5,
   "buy_usd": 10000,
   "sell_frac": 0.25,
-  "min_trade_usd": 500,
-  "updated_at": "2025-08-17T12:06:42.210385+00:00",
-  "updated_reason": "Increased risk tolerance and profit targets to reflect a more aggressive trading style, while adjusting cash and liquidity for higher trading volume."
+  "min_trade_usd": 300,
+  "updated_at": "2025-08-17T12:34:16.542198+00:00",
+  "updated_reason": "Increased risk tolerance and profit targets to match market momentum; expanded position limits for more aggressive trading."
 }
