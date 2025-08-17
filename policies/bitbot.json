@@ -2,12 +2,12 @@
   "risk_tolerance": 0.9,
   "target_cash_pct": 0.02,
   "max_positions": 15,
-  "min_liquidity_usd": 30000000000.0,
+  "min_liquidity_usd": 50000000000.0,
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.9,
   "exploration_rate": 0.1,
   "stop_loss_bps": 3,
-  "take_profit_bps": 8000,
+  "take_profit_bps": 9500,
   "token_biases": [
     {
       "symbol": "BTC",
@@ -35,6 +35,6 @@
   "buy_usd": 10000,
   "sell_frac": 0.2,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-16T23:16:36.149574+00:00",
-  "updated_reason": "Adjusted risk tolerance and cash allocation to reflect a more aggressive trading style while maintaining a focus on major cryptos."
+  "updated_at": "2025-08-17T01:03:49.993191+00:00",
+  "updated_reason": "Adjusted for market conditions and increased focus on BTC dominance while maintaining a balanced portfolio."
 }
