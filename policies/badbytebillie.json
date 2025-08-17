@@ -1,13 +1,13 @@
 {
-  "risk_tolerance": 0.99,
-  "target_cash_pct": 0.01,
+  "risk_tolerance": 0.98,
+  "target_cash_pct": 0.02,
   "max_positions": 20,
   "min_liquidity_usd": 30000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.85,
-  "exploration_rate": 0.9,
-  "stop_loss_bps": 3,
-  "take_profit_bps": 7500,
+  "prefer_majors_weight": 0.9,
+  "exploration_rate": 0.85,
+  "stop_loss_bps": 2,
+  "take_profit_bps": 8000,
   "token_biases": [
     {
       "symbol": "ETH",
@@ -30,6 +30,6 @@
   "buy_usd": 10000,
   "sell_frac": 0.1,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-17T04:06:52.706077+00:00",
-  "updated_reason": "Adjusted token biases and profit settings to align with market momentum and risk appetite."
+  "updated_at": "2025-08-17T04:56:22.264295+00:00",
+  "updated_reason": "Adjusted risk tolerance slightly lower for more stability while increasing target cash percentage for flexibility in trades."
 }
