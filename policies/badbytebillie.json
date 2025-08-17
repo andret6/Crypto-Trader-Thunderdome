@@ -4,8 +4,8 @@
   "max_positions": 20,
   "min_liquidity_usd": 700000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.9,
-  "exploration_rate": 0.85,
+  "prefer_majors_weight": 0.85,
+  "exploration_rate": 0.9,
   "stop_loss_bps": 2,
   "take_profit_bps": 10000,
   "token_biases": [
@@ -30,6 +30,6 @@
   "buy_usd": 10000,
   "sell_frac": 0.15,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-17T21:12:12.268060+00:00",
-  "updated_reason": "Adjusted for higher risk tolerance and market momentum; increased buy amount and position limits to capitalize on trends."
+  "updated_at": "2025-08-17T22:01:31.557499+00:00",
+  "updated_reason": "Adjusted prefer_majors_weight and exploration_rate for a more aggressive stance in a bullish market."
 }
