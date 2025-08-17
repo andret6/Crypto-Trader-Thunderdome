@@ -2,12 +2,12 @@
   "risk_tolerance": 0.9,
   "target_cash_pct": 0.02,
   "max_positions": 15,
-  "min_liquidity_usd": 50000000000.0,
+  "min_liquidity_usd": 70000000000.0,
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.9,
   "exploration_rate": 0.1,
   "stop_loss_bps": 3,
-  "take_profit_bps": 9500,
+  "take_profit_bps": 8000,
   "token_biases": [
     {
       "symbol": "BTC",
@@ -17,24 +17,24 @@
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.1
+      "weight": 0.15
     },
     {
       "symbol": "XRP",
       "id": null,
-      "weight": 0.2
+      "weight": 0.1
     },
     {
       "symbol": "LINK",
       "id": null,
-      "weight": 0.2
+      "weight": 0.25
     }
   ],
   "min_m24_buy": 10.0,
-  "max_m24_sell": -0.05,
-  "buy_usd": 10000,
+  "max_m24_sell": -0.5,
+  "buy_usd": 8000,
   "sell_frac": 0.2,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-17T01:03:49.993191+00:00",
-  "updated_reason": "Adjusted for market conditions and increased focus on BTC dominance while maintaining a balanced portfolio."
+  "updated_at": "2025-08-17T01:34:09.148999+00:00",
+  "updated_reason": "Adjusted for market conditions and to reflect a more aggressive trading strategy while maintaining a touch of caution."
 }
