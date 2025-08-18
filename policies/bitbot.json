@@ -1,28 +1,28 @@
 {
-  "risk_tolerance": 0.95,
-  "target_cash_pct": 0.01,
+  "risk_tolerance": 0.9,
+  "target_cash_pct": 0.02,
   "max_positions": 15,
   "min_liquidity_usd": 2500000000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.85,
-  "exploration_rate": 0.15,
-  "stop_loss_bps": 2,
-  "take_profit_bps": 10000,
+  "prefer_majors_weight": 0.8,
+  "exploration_rate": 0.2,
+  "stop_loss_bps": 3,
+  "take_profit_bps": 8000,
   "token_biases": [
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.45
+      "weight": 0.4
     },
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.35
+      "weight": 0.3
     },
     {
       "symbol": "XRP",
       "id": null,
-      "weight": 0.1
+      "weight": 0.15
     },
     {
       "symbol": "LINK",
@@ -35,11 +35,11 @@
       "weight": 0.05
     }
   ],
-  "min_m24_buy": 12.0,
-  "max_m24_sell": -1.0,
+  "min_m24_buy": 10.0,
+  "max_m24_sell": -2.0,
   "buy_usd": 10000,
-  "sell_frac": 0.25,
+  "sell_frac": 0.2,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-18T16:52:13.622340+00:00",
-  "updated_reason": "Increased risk tolerance and profit targets to reflect market conditions and persona's aggressive trading style."
+  "updated_at": "2025-08-18T17:07:20.618026+00:00",
+  "updated_reason": "Adjusted risk and cash allocation to reflect market volatility and maintain a competitive edge."
 }
