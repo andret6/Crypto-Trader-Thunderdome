@@ -4,10 +4,10 @@
   "max_positions": 20,
   "min_liquidity_usd": 2500000000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.8,
-  "exploration_rate": 0.2,
+  "prefer_majors_weight": 0.9,
+  "exploration_rate": 0.1,
   "stop_loss_bps": 3,
-  "take_profit_bps": 10000,
+  "take_profit_bps": 8000,
   "token_biases": [
     {
       "symbol": "BTC",
@@ -33,8 +33,8 @@
   "min_m24_buy": 10.0,
   "max_m24_sell": -2.0,
   "buy_usd": 10000,
-  "sell_frac": 0.3,
+  "sell_frac": 0.2,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-18T00:54:55.594605+00:00",
-  "updated_reason": "Adjusted for market dynamics and increased potential profit targets while maintaining a strong focus on major coins."
+  "updated_at": "2025-08-18T01:23:05.185827+00:00",
+  "updated_reason": "Adjusted for market momentum and increased focus on major coins while maintaining a healthy risk profile."
 }
