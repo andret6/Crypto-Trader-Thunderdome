@@ -1,13 +1,13 @@
 {
   "risk_tolerance": 0.99,
   "target_cash_pct": 0.01,
-  "max_positions": 18,
-  "min_liquidity_usd": 2000000000.0,
+  "max_positions": 20,
+  "min_liquidity_usd": 2500000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.85,
-  "exploration_rate": 0.9,
-  "stop_loss_bps": 2,
-  "take_profit_bps": 9000,
+  "prefer_majors_weight": 0.9,
+  "exploration_rate": 0.85,
+  "stop_loss_bps": 3,
+  "take_profit_bps": 9500,
   "token_biases": [
     {
       "symbol": "ETH",
@@ -25,11 +25,11 @@
       "weight": 0.2
     }
   ],
-  "min_m24_buy": 4.0,
-  "max_m24_sell": -0.02,
-  "buy_usd": 9000,
-  "sell_frac": 0.15,
+  "min_m24_buy": 5.0,
+  "max_m24_sell": -0.01,
+  "buy_usd": 10000,
+  "sell_frac": 0.1,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-18T00:53:08.162108+00:00",
-  "updated_reason": "Adjusted for higher risk tolerance and market momentum, while increasing buy and sell thresholds for better engagement."
+  "updated_at": "2025-08-18T01:41:32.043869+00:00",
+  "updated_reason": "Adjusted max_positions for flexibility, increased liquidity threshold, and tweaked profit settings for a sharper edge."
 }
