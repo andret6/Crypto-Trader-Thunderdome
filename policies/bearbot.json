@@ -1,8 +1,8 @@
 {
-  "risk_tolerance": 0.01,
+  "risk_tolerance": 0.02,
   "target_cash_pct": 0.95,
   "max_positions": 1,
-  "min_liquidity_usd": 400000000.0,
+  "min_liquidity_usd": 500000000.0,
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.99,
   "exploration_rate": 0.0001,
@@ -14,6 +14,6 @@
   "buy_usd": 5,
   "sell_frac": 0.0001,
   "min_trade_usd": 100,
-  "updated_at": "2025-08-18T06:31:35.394420+00:00",
-  "updated_reason": "Adjusted risk tolerance and stop loss for more conservative trading amidst market downturn."
+  "updated_at": "2025-08-18T07:32:06.984333+00:00",
+  "updated_reason": "Adjusted risk tolerance slightly higher to reflect market conditions while maintaining a conservative stance."
 }
