@@ -1,7 +1,7 @@
 {
   "risk_tolerance": 0.95,
   "target_cash_pct": 0.01,
-  "max_positions": 20,
+  "max_positions": 18,
   "min_liquidity_usd": 3000000000000.0,
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.85,
@@ -17,7 +17,7 @@
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.35
+      "weight": 0.3
     },
     {
       "symbol": "XRP",
@@ -27,19 +27,19 @@
     {
       "symbol": "LINK",
       "id": null,
-      "weight": 0.03
+      "weight": 0.05
     },
     {
       "symbol": "BNB",
       "id": null,
-      "weight": 0.02
+      "weight": 0.05
     }
   ],
   "min_m24_buy": 12.0,
-  "max_m24_sell": -0.5,
+  "max_m24_sell": -2.0,
   "buy_usd": 10000,
   "sell_frac": 0.25,
-  "min_trade_usd": 200,
-  "updated_at": "2025-08-19T11:42:04.305359+00:00",
-  "updated_reason": "Adjusted for higher risk appetite and market momentum; increased buy amount to capitalize on potential gains."
+  "min_trade_usd": 300,
+  "updated_at": "2025-08-19T12:11:42.684231+00:00",
+  "updated_reason": "Increased risk tolerance and adjusted token biases to capitalize on market momentum while maintaining a strategic approach."
 }
