@@ -1,18 +1,18 @@
 {
-  "risk_tolerance": 0.95,
-  "target_cash_pct": 0.01,
+  "risk_tolerance": 0.9,
+  "target_cash_pct": 0.02,
   "max_positions": 15,
   "min_liquidity_usd": 2500000000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.85,
-  "exploration_rate": 0.15,
-  "stop_loss_bps": 3,
+  "prefer_majors_weight": 0.9,
+  "exploration_rate": 0.1,
+  "stop_loss_bps": 2,
   "take_profit_bps": 10000,
   "token_biases": [
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.4
+      "weight": 0.45
     },
     {
       "symbol": "ETH",
@@ -33,18 +33,13 @@
       "symbol": "BNB",
       "id": null,
       "weight": 0.05
-    },
-    {
-      "symbol": "SOL",
-      "id": null,
-      "weight": 0.05
     }
   ],
-  "min_m24_buy": 12.0,
-  "max_m24_sell": -4.0,
-  "buy_usd": 8000,
-  "sell_frac": 0.25,
-  "min_trade_usd": 400,
-  "updated_at": "2025-08-19T18:46:37.544982+00:00",
-  "updated_reason": "Adjusted for higher risk tolerance and potential market recovery; increased buy amount to capitalize on dips."
+  "min_m24_buy": 10.0,
+  "max_m24_sell": -5.0,
+  "buy_usd": 10000,
+  "sell_frac": 0.2,
+  "min_trade_usd": 500,
+  "updated_at": "2025-08-19T19:01:32.832054+00:00",
+  "updated_reason": "Adjusted for market conditions and to reflect a more aggressive trading style while maintaining a focus on major assets."
 }
