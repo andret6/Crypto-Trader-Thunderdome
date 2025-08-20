@@ -14,6 +14,6 @@
   "buy_usd": 5,
   "sell_frac": 0.0001,
   "min_trade_usd": 100,
-  "updated_at": "2025-08-20T11:37:11.084355+00:00",
-  "updated_reason": "Reduced risk tolerance and stop loss to align with conservative strategy amidst market downturn."
+  "updated_at": "2025-08-20T11:53:19.967500+00:00",
+  "updated_reason": "Adjusted risk tolerance and stop loss to reflect conservative strategy amid market downturn."
 }
