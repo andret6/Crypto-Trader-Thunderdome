@@ -7,7 +7,7 @@
   "prefer_majors_weight": 0.85,
   "exploration_rate": 0.15,
   "stop_loss_bps": 2,
-  "take_profit_bps": 9000,
+  "take_profit_bps": 10000,
   "token_biases": [
     {
       "symbol": "BTC",
@@ -17,7 +17,7 @@
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.35
+      "weight": 0.4
     },
     {
       "symbol": "XRP",
@@ -27,7 +27,7 @@
     {
       "symbol": "LINK",
       "id": null,
-      "weight": 0.1
+      "weight": 0.05
     },
     {
       "symbol": "BNB",
@@ -38,8 +38,8 @@
   "min_m24_buy": 10.0,
   "max_m24_sell": -5.0,
   "buy_usd": 8000,
-  "sell_frac": 0.2,
-  "min_trade_usd": 300,
-  "updated_at": "2025-08-20T11:53:22.698027+00:00",
-  "updated_reason": "Increased risk tolerance and adjusted token biases to reflect market conditions and a more aggressive trading strategy."
+  "sell_frac": 0.3,
+  "min_trade_usd": 500,
+  "updated_at": "2025-08-20T12:10:45.048518+00:00",
+  "updated_reason": "Increased risk tolerance and max positions to capture more opportunities; adjusted weights to favor BTC and ETH while maintaining diversity."
 }
