@@ -4,10 +4,10 @@
   "max_positions": 20,
   "min_liquidity_usd": 25000000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.9,
-  "exploration_rate": 0.85,
-  "stop_loss_bps": 3,
-  "take_profit_bps": 9500,
+  "prefer_majors_weight": 0.85,
+  "exploration_rate": 0.9,
+  "stop_loss_bps": 2,
+  "take_profit_bps": 10000,
   "token_biases": [
     {
       "symbol": "ETH",
@@ -30,6 +30,6 @@
   "buy_usd": 10000,
   "sell_frac": 0.2,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-20T14:51:56.522392+00:00",
-  "updated_reason": "Adjusted prefer_majors_weight for more stability and increased take_profit_bps for higher gains."
+  "updated_at": "2025-08-20T15:37:56.607643+00:00",
+  "updated_reason": "Adjusted prefer_majors_weight and stop_loss_bps for a sharper focus on major coins and tighter risk management."
 }
