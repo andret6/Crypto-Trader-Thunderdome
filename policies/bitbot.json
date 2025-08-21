@@ -36,10 +36,10 @@
     }
   ],
   "min_m24_buy": 12.0,
-  "max_m24_sell": -1.0,
+  "max_m24_sell": -2.0,
   "buy_usd": 10000,
   "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-21T04:47:08.698745+00:00",
-  "updated_reason": "Increased risk tolerance and buy amount to reflect market momentum and confidence in major cryptos."
+  "updated_at": "2025-08-21T05:22:38.399219+00:00",
+  "updated_reason": "Adjusted for higher risk tolerance and increased potential profit targets, reflecting market momentum and my bullish persona."
 }
