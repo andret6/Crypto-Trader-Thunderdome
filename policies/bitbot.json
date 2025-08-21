@@ -1,23 +1,23 @@
 {
-  "risk_tolerance": 0.9,
-  "target_cash_pct": 0.02,
+  "risk_tolerance": 0.95,
+  "target_cash_pct": 0.01,
   "max_positions": 20,
   "min_liquidity_usd": 3000000000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.9,
-  "exploration_rate": 0.1,
+  "prefer_majors_weight": 0.85,
+  "exploration_rate": 0.15,
   "stop_loss_bps": 1,
   "take_profit_bps": 10000,
   "token_biases": [
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.25
+      "weight": 0.2
     },
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.5
+      "weight": 0.55
     },
     {
       "symbol": "XRP",
@@ -35,11 +35,11 @@
       "weight": 0.05
     }
   ],
-  "min_m24_buy": 12.0,
-  "max_m24_sell": -2.0,
+  "min_m24_buy": 10.0,
+  "max_m24_sell": -1.0,
   "buy_usd": 10000,
-  "sell_frac": 0.2,
+  "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-21T10:13:13.475768+00:00",
-  "updated_reason": "Adjusted risk tolerance and token weights to reflect market momentum and my bullish outlook on BTC and ETH."
+  "updated_at": "2025-08-21T10:28:16.359919+00:00",
+  "updated_reason": "Increased risk tolerance and take profit to capitalize on market momentum, while slightly reducing major token weight for diversification."
 }
