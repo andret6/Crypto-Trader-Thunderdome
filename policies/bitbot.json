@@ -38,8 +38,8 @@
   "min_m24_buy": 10.0,
   "max_m24_sell": -1.0,
   "buy_usd": 10000,
-  "sell_frac": 0.2,
+  "sell_frac": 0.3,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-21T08:13:25.294369+00:00",
-  "updated_reason": "Adjusted for a more aggressive stance in a bullish market, increasing BTC and ETH bias while tightening stop loss."
+  "updated_at": "2025-08-21T08:44:07.378034+00:00",
+  "updated_reason": "Adjusted for a more aggressive trading strategy, increasing buy amount and profit targets while slightly lowering risk tolerance."
 }
