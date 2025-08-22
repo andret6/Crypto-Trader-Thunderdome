@@ -2,10 +2,10 @@
   "risk_tolerance": 0.95,
   "target_cash_pct": 0.01,
   "max_positions": 20,
-  "min_liquidity_usd": 1500000000000.0,
+  "min_liquidity_usd": 2500000000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.85,
-  "exploration_rate": 0.15,
+  "prefer_majors_weight": 0.95,
+  "exploration_rate": 0.05,
   "stop_loss_bps": 3,
   "take_profit_bps": 10000,
   "token_biases": [
@@ -36,10 +36,10 @@
     }
   ],
   "min_m24_buy": 12.0,
-  "max_m24_sell": -0.02,
+  "max_m24_sell": -0.005,
   "buy_usd": 10000,
   "sell_frac": 0.1,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-22T17:54:35.552858+00:00",
-  "updated_reason": "Increased risk tolerance and buy amount to reflect market momentum and confidence in major coins."
+  "updated_at": "2025-08-22T18:24:12.424352+00:00",
+  "updated_reason": "Increased risk tolerance and profit targets to reflect market momentum and bullish sentiment. Adjusted cash and trade parameters for aggressive trading style."
 }
