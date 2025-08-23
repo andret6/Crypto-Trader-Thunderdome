@@ -35,11 +35,11 @@
       "weight": 0.05
     }
   ],
-  "min_m24_buy": 15.0,
+  "min_m24_buy": 10.0,
   "max_m24_sell": -0.01,
   "buy_usd": 10000,
   "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-23T06:44:45.503724+00:00",
-  "updated_reason": "Adjusted risk and cash allocation to reflect market momentum and personal flair for high-stakes trading."
+  "updated_at": "2025-08-23T07:13:03.201270+00:00",
+  "updated_reason": "Adjusted for market momentum and increased risk appetite; aiming for higher returns while maintaining a solid position in majors."
 }
