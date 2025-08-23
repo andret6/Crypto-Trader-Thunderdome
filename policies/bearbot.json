@@ -1,19 +1,19 @@
 {
-  "risk_tolerance": 0.01,
-  "target_cash_pct": 0.85,
+  "risk_tolerance": 0.02,
+  "target_cash_pct": 0.9,
   "max_positions": 1,
   "min_liquidity_usd": 1000000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.98,
-  "exploration_rate": 5e-05,
-  "stop_loss_bps": 10,
+  "prefer_majors_weight": 0.99,
+  "exploration_rate": 0.0001,
+  "stop_loss_bps": 15,
   "take_profit_bps": 0,
   "token_biases": [],
   "min_m24_buy": 0.01,
   "max_m24_sell": -0.01,
-  "buy_usd": 5,
-  "sell_frac": 5e-05,
+  "buy_usd": 10,
+  "sell_frac": 0.0001,
   "min_trade_usd": 100,
-  "updated_at": "2025-08-23T11:56:20.823740+00:00",
-  "updated_reason": "Adjusted risk tolerance and cash target for increased conservatism; lowered buy and sell fractions for tighter control."
+  "updated_at": "2025-08-23T12:59:34.281442+00:00",
+  "updated_reason": "Increased cash allocation and risk tolerance slightly to adapt to current market trends while maintaining a conservative stance."
 }
