@@ -1,33 +1,33 @@
 {
-  "risk_tolerance": 0.85,
-  "target_cash_pct": 0.03,
-  "max_positions": 15,
+  "risk_tolerance": 0.9,
+  "target_cash_pct": 0.02,
+  "max_positions": 20,
   "min_liquidity_usd": 3000000000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.95,
-  "exploration_rate": 0.05,
-  "stop_loss_bps": 4,
-  "take_profit_bps": 8000,
+  "prefer_majors_weight": 0.9,
+  "exploration_rate": 0.1,
+  "stop_loss_bps": 3,
+  "take_profit_bps": 9000,
   "token_biases": [
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.4
+      "weight": 0.35
     },
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.4
+      "weight": 0.35
     },
     {
       "symbol": "XRP",
       "id": null,
-      "weight": 0.1
+      "weight": 0.15
     },
     {
       "symbol": "LINK",
       "id": null,
-      "weight": 0.05
+      "weight": 0.1
     },
     {
       "symbol": "BNB",
@@ -35,11 +35,11 @@
       "weight": 0.05
     }
   ],
-  "min_m24_buy": 10.0,
-  "max_m24_sell": -0.01,
+  "min_m24_buy": 12.0,
+  "max_m24_sell": -0.02,
   "buy_usd": 10000,
-  "sell_frac": 0.2,
+  "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-24T06:49:51.087037+00:00",
-  "updated_reason": "Adjusted risk tolerance and major weights to reflect market conditions and maintain a confident trading stance."
+  "updated_at": "2025-08-24T07:05:04.549053+00:00",
+  "updated_reason": "Adjusted for higher risk tolerance and potential market volatility, while increasing buy amount to seize opportunities."
 }
