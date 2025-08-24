@@ -1,7 +1,7 @@
 {
   "risk_tolerance": 0.9,
   "target_cash_pct": 0.02,
-  "max_positions": 20,
+  "max_positions": 15,
   "min_liquidity_usd": 3000000000000.0,
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.9,
@@ -17,12 +17,12 @@
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.35
+      "weight": 0.4
     },
     {
       "symbol": "XRP",
       "id": null,
-      "weight": 0.1
+      "weight": 0.05
     },
     {
       "symbol": "LINK",
@@ -36,10 +36,10 @@
     }
   ],
   "min_m24_buy": 10.0,
-  "max_m24_sell": -2.0,
+  "max_m24_sell": -1.0,
   "buy_usd": 10000,
   "sell_frac": 0.2,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-24T23:10:59.334342+00:00",
-  "updated_reason": "Adjusted for a more aggressive stance in a volatile market, increasing BTC and ETH bias while tightening stop loss."
+  "updated_at": "2025-08-24T23:40:24.457134+00:00",
+  "updated_reason": "Adjusted risk and profit parameters to reflect market conditions and maintain a confident trading stance."
 }
