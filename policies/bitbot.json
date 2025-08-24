@@ -12,12 +12,12 @@
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.45
+      "weight": 0.35
     },
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.4
+      "weight": 0.5
     },
     {
       "symbol": "XRP",
@@ -36,10 +36,10 @@
     }
   ],
   "min_m24_buy": 10.0,
-  "max_m24_sell": -0.01,
-  "buy_usd": 10000,
+  "max_m24_sell": -0.02,
+  "buy_usd": 8000,
   "sell_frac": 0.2,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-24T08:04:33.358101+00:00",
-  "updated_reason": "Adjusted risk and profit parameters to reflect market conditions and maintain a competitive edge."
+  "updated_at": "2025-08-24T08:35:13.811074+00:00",
+  "updated_reason": "Adjusted for a more aggressive stance in a volatile market, increasing major coin bias and profit targets."
 }
