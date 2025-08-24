@@ -1,5 +1,5 @@
 {
-  "risk_tolerance": 0.85,
+  "risk_tolerance": 0.9,
   "target_cash_pct": 0.01,
   "max_positions": 5,
   "min_liquidity_usd": 8000000.0,
@@ -17,9 +17,9 @@
   ],
   "min_m24_buy": 0.8,
   "max_m24_sell": -0.1,
-  "buy_usd": 10000,
+  "buy_usd": 8000,
   "sell_frac": 0.1,
   "min_trade_usd": 50,
-  "updated_at": "2025-08-24T12:10:48.281667+00:00",
-  "updated_reason": "Increased take profit to favor more bitcoin accumulation while maintaining risk tolerance."
+  "updated_at": "2025-08-24T12:38:48.145846+00:00",
+  "updated_reason": "Increased risk tolerance to favor more aggressive accumulation of Bitcoin while maintaining current strategy."
 }
