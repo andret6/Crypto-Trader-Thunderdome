@@ -1,5 +1,5 @@
 {
-  "risk_tolerance": 0.85,
+  "risk_tolerance": 0.9,
   "target_cash_pct": 0.01,
   "max_positions": 5,
   "min_liquidity_usd": 8000000.0,
@@ -20,6 +20,6 @@
   "buy_usd": 10000,
   "sell_frac": 0.1,
   "min_trade_usd": 50,
-  "updated_at": "2025-08-25T22:43:30.922654+00:00",
-  "updated_reason": "Adjusted take_profit_bps to favor more bitcoin accumulation during market downturn."
+  "updated_at": "2025-08-25T23:11:55.503169+00:00",
+  "updated_reason": "Increased take profit to favor higher gains while maintaining strong BTC bias."
 }
