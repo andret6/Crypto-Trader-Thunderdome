@@ -17,22 +17,22 @@
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.4
+      "weight": 0.3
     },
     {
       "symbol": "XRP",
       "id": null,
-      "weight": 0.05
+      "weight": 0.1
     },
     {
       "symbol": "LINK",
       "id": null,
-      "weight": 0.03
+      "weight": 0.05
     },
     {
       "symbol": "BNB",
       "id": null,
-      "weight": 0.02
+      "weight": 0.05
     }
   ],
   "min_m24_buy": 12.0,
@@ -40,6 +40,6 @@
   "buy_usd": 10000,
   "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-25T23:45:02.125352+00:00",
-  "updated_reason": "Increased risk tolerance and buy amount to reflect confidence in current market; adjusted token biases and weights for better diversification."
+  "updated_at": "2025-08-26T00:14:30.937403+00:00",
+  "updated_reason": "Increased risk tolerance and profit targets to reflect market volatility and confidence in major cryptos."
 }
