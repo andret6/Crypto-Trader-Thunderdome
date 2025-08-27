@@ -17,7 +17,7 @@
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.4
+      "weight": 0.35
     },
     {
       "symbol": "XRP",
@@ -27,19 +27,19 @@
     {
       "symbol": "LINK",
       "id": null,
-      "weight": 0.03
+      "weight": 0.05
     },
     {
       "symbol": "BNB",
       "id": null,
-      "weight": 0.02
+      "weight": 0.05
     }
   ],
   "min_m24_buy": 10.0,
-  "max_m24_sell": -1.0,
+  "max_m24_sell": -0.5,
   "buy_usd": 10000,
-  "sell_frac": 0.1,
+  "sell_frac": 0.2,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-26T22:31:54.248077+00:00",
-  "updated_reason": "Adjusted for market momentum and increased bias towards BTC and ETH, reflecting confidence in top performers."
+  "updated_at": "2025-08-27T02:08:24.750300+00:00",
+  "updated_reason": "Adjusted for a more aggressive stance in a bullish market, increasing BTC bias and profit targets."
 }
