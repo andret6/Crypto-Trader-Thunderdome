@@ -1,6 +1,6 @@
 {
-  "risk_tolerance": 0.02,
-  "target_cash_pct": 0.9,
+  "risk_tolerance": 0.01,
+  "target_cash_pct": 0.95,
   "max_positions": 1,
   "min_liquidity_usd": 1000000000.0,
   "momentum_window_days": 30,
@@ -11,9 +11,9 @@
   "token_biases": [],
   "min_m24_buy": 0.01,
   "max_m24_sell": -0.01,
-  "buy_usd": 10,
+  "buy_usd": 5,
   "sell_frac": 0.0001,
   "min_trade_usd": 100,
-  "updated_at": "2025-08-27T21:07:25.843746+00:00",
-  "updated_reason": "Adjusted risk tolerance and cash percentage to maintain conservative stance while allowing for slight increases in buy amount."
+  "updated_at": "2025-08-27T22:03:34.545005+00:00",
+  "updated_reason": "Adjusted risk tolerance and cash percentage to align with conservative strategy amid bearish market conditions."
 }
