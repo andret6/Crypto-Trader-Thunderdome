@@ -35,11 +35,11 @@
       "weight": 0.05
     }
   ],
-  "min_m24_buy": 12.0,
-  "max_m24_sell": -0.1,
+  "min_m24_buy": 10.0,
+  "max_m24_sell": -0.05,
   "buy_usd": 10000,
   "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-27T11:07:31.838050+00:00",
-  "updated_reason": "Adjusted risk tolerance and major weights to reflect bullish sentiment and increased potential in BTC and ETH."
+  "updated_at": "2025-08-27T11:35:23.886676+00:00",
+  "updated_reason": "Adjusted risk tolerance and target cash to reflect a more aggressive trading style, increased take profit for higher gains."
 }
