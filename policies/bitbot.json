@@ -6,7 +6,7 @@
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.85,
   "exploration_rate": 0.15,
-  "stop_loss_bps": 3,
+  "stop_loss_bps": 1,
   "take_profit_bps": 10000,
   "token_biases": [
     {
@@ -36,10 +36,10 @@
     }
   ],
   "min_m24_buy": 12.0,
-  "max_m24_sell": -0.3,
+  "max_m24_sell": -0.1,
   "buy_usd": 10000,
   "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-27T02:24:41.669980+00:00",
-  "updated_reason": "Increased risk tolerance and buy amount to reflect market momentum and confidence in major cryptos."
+  "updated_at": "2025-08-27T10:53:20.205984+00:00",
+  "updated_reason": "Increased risk tolerance and take profit to capitalize on bullish momentum; adjusted token biases for better diversification."
 }
