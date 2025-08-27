@@ -1,11 +1,11 @@
 {
-  "risk_tolerance": 0.95,
-  "target_cash_pct": 0.01,
+  "risk_tolerance": 0.9,
+  "target_cash_pct": 0.02,
   "max_positions": 15,
   "min_liquidity_usd": 3000000000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.85,
-  "exploration_rate": 0.15,
+  "prefer_majors_weight": 0.9,
+  "exploration_rate": 0.1,
   "stop_loss_bps": 1,
   "take_profit_bps": 10000,
   "token_biases": [
@@ -40,6 +40,6 @@
   "buy_usd": 10000,
   "sell_frac": 0.2,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-27T11:51:44.755288+00:00",
-  "updated_reason": "Increased risk tolerance and take profit to capitalize on bullish momentum; adjusted weights for BTC and ETH to reflect market dominance."
+  "updated_at": "2025-08-27T12:07:13.267565+00:00",
+  "updated_reason": "Adjusted risk tolerance down slightly for more aggressive trading, increased take profit to capitalize on bullish momentum."
 }
