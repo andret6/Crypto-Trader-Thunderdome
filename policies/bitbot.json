@@ -1,7 +1,7 @@
 {
   "risk_tolerance": 0.95,
   "target_cash_pct": 0.01,
-  "max_positions": 20,
+  "max_positions": 15,
   "min_liquidity_usd": 3000000000000.0,
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.85,
@@ -22,7 +22,7 @@
     {
       "symbol": "XRP",
       "id": null,
-      "weight": 0.15
+      "weight": 0.1
     },
     {
       "symbol": "SOL",
@@ -32,7 +32,7 @@
     {
       "symbol": "BNB",
       "id": null,
-      "weight": 0.05
+      "weight": 0.1
     }
   ],
   "min_m24_buy": 12.0,
@@ -40,6 +40,6 @@
   "buy_usd": 10000,
   "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-28T13:31:13.232315+00:00",
-  "updated_reason": "Adjusted for higher risk tolerance and potential market momentum; increased buy amount for aggressive plays."
+  "updated_at": "2025-08-28T14:01:01.196482+00:00",
+  "updated_reason": "Increased risk tolerance and profit targets to reflect a more aggressive trading style. Adjusted token biases and weights to capitalize on current market momentum."
 }
