@@ -1,7 +1,7 @@
 {
   "risk_tolerance": 0.95,
   "target_cash_pct": 0.01,
-  "max_positions": 15,
+  "max_positions": 20,
   "min_liquidity_usd": 3000000000000.0,
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.85,
@@ -36,10 +36,10 @@
     }
   ],
   "min_m24_buy": 12.0,
-  "max_m24_sell": -0.05,
+  "max_m24_sell": -0.2,
   "buy_usd": 10000,
   "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-28T02:29:09.722991+00:00",
-  "updated_reason": "Increased risk tolerance and profit targets to reflect confidence in market momentum; adjusted token weights for better diversification."
+  "updated_at": "2025-08-28T02:58:04.128239+00:00",
+  "updated_reason": "Increased risk tolerance and profit targets to reflect a more aggressive trading style, while slightly adjusting token biases for better diversification."
 }
