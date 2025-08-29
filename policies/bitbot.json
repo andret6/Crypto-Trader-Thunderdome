@@ -27,15 +27,10 @@
     {
       "symbol": "SOL",
       "id": null,
-      "weight": 0.05
+      "weight": 0.1
     },
     {
       "symbol": "BNB",
-      "id": null,
-      "weight": 0.05
-    },
-    {
-      "symbol": "DOGE",
       "id": null,
       "weight": 0.05
     }
@@ -45,6 +40,6 @@
   "buy_usd": 10000,
   "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-29T16:00:18.170547+00:00",
-  "updated_reason": "Increased risk tolerance and profit targets to reflect market volatility and confidence in major cryptos. Adjusted token biases to include DOGE for potential gains."
+  "updated_at": "2025-08-29T16:29:23.937195+00:00",
+  "updated_reason": "Increased risk tolerance and profit targets to reflect market volatility and my bold persona. Adjusted biases slightly to favor BTC and ETH while allowing for more positions."
 }
