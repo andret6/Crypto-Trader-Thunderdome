@@ -1,18 +1,18 @@
 {
-  "risk_tolerance": 0.97,
-  "target_cash_pct": 0.02,
-  "max_positions": 18,
-  "min_liquidity_usd": 1000000000000.0,
+  "risk_tolerance": 0.95,
+  "target_cash_pct": 0.01,
+  "max_positions": 20,
+  "min_liquidity_usd": 1500000000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.92,
-  "exploration_rate": 0.08,
+  "prefer_majors_weight": 0.95,
+  "exploration_rate": 0.05,
   "stop_loss_bps": 1,
-  "take_profit_bps": 9500,
+  "take_profit_bps": 10000,
   "token_biases": [
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.4
+      "weight": 0.45
     },
     {
       "symbol": "ETH",
@@ -22,7 +22,7 @@
     {
       "symbol": "XRP",
       "id": null,
-      "weight": 0.15
+      "weight": 0.1
     },
     {
       "symbol": "BNB",
@@ -38,8 +38,8 @@
   "min_m24_buy": 10.0,
   "max_m24_sell": -0.5,
   "buy_usd": 10000,
-  "sell_frac": 0.2,
+  "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-31T08:34:47.248413+00:00",
-  "updated_reason": "Adjusted for higher risk tolerance and potential gains in a bullish market. Increased buy amount to capitalize on momentum."
+  "updated_at": "2025-08-31T08:48:29.552449+00:00",
+  "updated_reason": "Adjusted for higher risk tolerance and increased focus on major coins due to market momentum."
 }
