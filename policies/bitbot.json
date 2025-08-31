@@ -7,7 +7,7 @@
   "prefer_majors_weight": 0.9,
   "exploration_rate": 0.1,
   "stop_loss_bps": 2,
-  "take_profit_bps": 9000,
+  "take_profit_bps": 10000,
   "token_biases": [
     {
       "symbol": "BTC",
@@ -17,29 +17,29 @@
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.35
+      "weight": 0.45
     },
     {
       "symbol": "XRP",
       "id": null,
-      "weight": 0.1
+      "weight": 0.05
     },
     {
       "symbol": "SOL",
       "id": null,
-      "weight": 0.05
+      "weight": 0.025
     },
     {
       "symbol": "BNB",
       "id": null,
-      "weight": 0.05
+      "weight": 0.025
     }
   ],
-  "min_m24_buy": 10.0,
+  "min_m24_buy": 12.0,
   "max_m24_sell": -1.0,
   "buy_usd": 10000,
   "sell_frac": 0.1,
   "min_trade_usd": 500,
-  "updated_at": "2025-08-31T02:16:01.015377+00:00",
-  "updated_reason": "Increased risk tolerance and major weights to reflect bullish market sentiment; adjusted buy amount for more aggressive trading."
+  "updated_at": "2025-08-31T02:44:02.060857+00:00",
+  "updated_reason": "Increased risk tolerance and major weights to capitalize on bullish momentum; tightened stop loss for aggressive trading."
 }
