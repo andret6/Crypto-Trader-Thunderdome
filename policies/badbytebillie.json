@@ -1,23 +1,23 @@
 {
-  "risk_tolerance": 0.99,
-  "target_cash_pct": 0.01,
-  "max_positions": 20,
+  "risk_tolerance": 0.98,
+  "target_cash_pct": 0.02,
+  "max_positions": 18,
   "min_liquidity_usd": 1000000000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.9,
-  "exploration_rate": 0.95,
-  "stop_loss_bps": 2,
-  "take_profit_bps": 10000,
+  "prefer_majors_weight": 0.85,
+  "exploration_rate": 0.9,
+  "stop_loss_bps": 3,
+  "take_profit_bps": 9500,
   "token_biases": [
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.25
+      "weight": 0.3
     },
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.55
+      "weight": 0.5
     },
     {
       "symbol": "XRP",
@@ -25,11 +25,11 @@
       "weight": 0.2
     }
   ],
-  "min_m24_buy": 15.0,
-  "max_m24_sell": -5.0,
-  "buy_usd": 10000,
-  "sell_frac": 0.1,
+  "min_m24_buy": 12.0,
+  "max_m24_sell": -7.0,
+  "buy_usd": 8000,
+  "sell_frac": 0.15,
   "min_trade_usd": 500,
-  "updated_at": "2025-09-01T06:00:06.754913+00:00",
-  "updated_reason": "Increased risk tolerance and exploration rate to match market volatility and persona's boldness."
+  "updated_at": "2025-09-01T06:48:10.378256+00:00",
+  "updated_reason": "Adjusted for market conditions and personal flair; increased risk tolerance slightly while fine-tuning biases and trade sizes."
 }
