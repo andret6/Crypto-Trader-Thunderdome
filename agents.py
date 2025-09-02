@@ -12,8 +12,10 @@ import os, time, re, math, json, calendar
 from datetime import datetime, timezone
 import requests
 import contextvars
+from pathlib import Path
 from agent_helper_functions import *
 from agent_helper_functions import (
+    _COINS_CACHE,
     _tools_allowed,
     _parse_month_year_window,
     _parse_year_window,
@@ -34,7 +36,8 @@ from agent_helper_functions import (
     _save_wallet,
     _spot_price_usd,
     _persona_desc,
-    _policy_brief
+    _policy_brief,
+    _leaderboard_rank
 )
 
 # ==============================
@@ -354,7 +357,96 @@ def make_wallet_tools(executor: AgentExecutor, bot_name: str):
         return (f"[PAPER] {side_up} {qty:.6f} {sym} @ {_pretty_money(exec_px)} "
                 f"({venue}) | notional {_pretty_money(notional)}, fee {_pretty_money(fee)}. "
                 f"USD bal: {_pretty_money(balances['USD'])}")
+    
+    @tool
+    def pnl_mood() -> str:
+        """
+        Mood based on portfolio delta vs a 'mood_ref' baseline:
+          - >= +2%  -> 'gloat'
+          - >   0.2%   -> 'joy'
+          - ==  (-0.2%) - 0.2%   -> 'neutral'
+          - <   0.2%   -> 'sad'
+          - <= -2%  -> 'angry'
+        Baseline refreshes on big moves or after a cooldown to avoid jitter.
+        """
+        # Tunables (env overrides optional)
+        REL_BIG = float(os.getenv("MOOD_REL_BIG", "0.02"))      # 2% big move
+        EPS_REL = float(os.getenv("MOOD_EPS_REL", "0.002"))       # 0 => any sign change counts
+        EPS_ABS = float(os.getenv("MOOD_EPS_ABS", "0.50"))      # ignore < $0.50 noise
+        MIN_INTERVAL_SECS = int(os.getenv("MOOD_MIN_INTERVAL_SECS", "900"))  # 15 min
+    
+        w = _load_wallet(bot_name)
+    
+        # Current marked-to-market
+        total_now, _ = (0.0, [])
+        try:
+            total_now, _ = (lambda: _mark_wallet(w))()
+        except Exception:
+            pass
+    
+        # Read or initialize mood baseline (independent from last_mark)
+        mood_ref = w.get("mood_ref") or {}
+        ref_total = float(mood_ref.get("total_usd") or 0.0)
+        now = datetime.now(timezone.utc)
+    
+        if not ref_total:
+            w["mood_ref"] = {"ts": now.isoformat(), "total_usd": float(total_now or 0.0)}
+            _save_wallet(w)
+            return "neutral"
+    
+        delta = float(total_now) - ref_total
+        rel = delta / max(1.0, ref_total)
+    
+        # Decide mood (big moves first, then any sign)
+        if rel >= REL_BIG:
+            mood = "gloat"
+        elif rel <= -REL_BIG:
+            mood = "angry"
+        else:
+            if (rel > EPS_REL) and (abs(delta) > EPS_ABS):
+                mood = "joy"
+            elif (rel < -EPS_REL) and (abs(delta) > EPS_ABS):
+                mood = "sad"
+            else:
+                mood = "neutral"
+        
+        # Decide mood (big moves first, then any sign)
+        if rel >= REL_BIG:
+            mood = "gloat"
+        elif rel <= -REL_BIG:
+            mood = "angry"
+        else:
+            if (rel > EPS_REL) and (abs(delta) > EPS_ABS):
+                mood = "joy"
+            elif (rel < -EPS_REL) and (abs(delta) > EPS_ABS):
+                mood = "sad"
+            else:
+                mood = "neutral"
+        
+        # --- Leaderboard override: first place is always happy ---
+        try:
+            rank, total_bots = _leaderboard_rank(bot_name)
+            # keep "gloat" if it was already a big positive move; otherwise force happy
+            if rank == 1 and mood != "gloat":
+                mood = "joy"
+        except Exception:
+            pass
 
+        # Refresh baseline on big moves, or after cooldown
+        should_refresh = abs(rel) >= REL_BIG
+        if not should_refresh:
+            try:
+                last_ts = datetime.fromisoformat(mood_ref.get("ts"))
+                should_refresh = (now - last_ts).total_seconds() >= MIN_INTERVAL_SECS
+            except Exception:
+                should_refresh = True
+    
+        if should_refresh:
+            w["mood_ref"] = {"ts": now.isoformat(), "total_usd": float(total_now or 0.0)}
+            _save_wallet(w)
+    
+        return mood
+    
     @tool
     def brag_or_commiserate() -> str:
         """Say something cocky or sad based on recent PnL direction."""
@@ -666,6 +758,7 @@ def make_wallet_tools(executor: AgentExecutor, bot_name: str):
         get_autotrade_interval,
         auto_trade_once,
         explain_trade,
+        pnl_mood,
     ]
 
 def make_action_tools(executor: AgentExecutor):

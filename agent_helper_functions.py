@@ -85,6 +85,41 @@ def _decide_intent(q: str) -> str:
         return "market_stats"
     return "unknown"
 
+def _leaderboard_rank(this_bot: str) -> tuple[int, int]:
+    """
+    Return (rank, total_bots) using current mark-to-market totals.
+    Rank is 1-based; 1 means first place.
+    """
+    # infer wallet directory from any bot's wallet path
+    wdir = Path(_wallet_path(this_bot)).parent
+    if not wdir.exists():
+        return (1, 1)
+
+    results = []
+    for fp in wdir.glob("*.json"):
+        try:
+            name = fp.stem
+            w = _load_wallet(name)
+            total, _ = _mark_wallet(w)   # mark to market for that wallet
+            results.append((name.lower(), float(total or 0.0)))
+        except Exception:
+            # be resilient—ignore bad/missing wallets
+            continue
+
+    if not results:
+        return (1, 1)
+
+    # sort by total desc, find our position
+    results.sort(key=lambda x: x[1], reverse=True)
+    names = [n for n, _ in results]
+    try:
+        pos = names.index(this_bot.lower())
+        return (pos + 1, len(results))
+    except ValueError:
+        # our wallet missing? treat as last
+        return (len(results), len(results))
+
+
 # ==============================
 # CoinGecko (Pro) Helpers
 # ==============================

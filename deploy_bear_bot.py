@@ -11,6 +11,7 @@ import discord
 from agents import EXECUTORS, set_request_context
 import re
 from policy_adjuster import adjust_policy
+from avatar_helper_functions import pick_mood_image
 from policy_helper_functions import load_policy
 
 TOKEN = os.getenv("DISCORD_BOT_TOKEN_3")                
@@ -105,18 +106,18 @@ async def on_message(message: discord.Message):
         return
 
     content = message.content
+    history = chat_histories.setdefault(message.channel.id, [])
+    
     for user in message.mentions:
         content = content.replace(f"<@{user.id}>", "").replace(f"<@!{user.id}>", "")
     if not content.strip():
         # Let the agent generate a persona-appropriate response to being pinged with no content
         result = await asyncio.to_thread(
             executor.invoke,
-            {"input": "Respond in character to someone pinging you without saying anything."}
+            {"input": "Respond in character to someone pinging you without saying anything.","chat_history": history}
         )
         await message.channel.send(result["output"][:1900])
         return
-
-    history = chat_histories.setdefault(message.channel.id, [])
 
     # Show typing while we run the blocking agent call in a thread
     async with message.channel.typing():
@@ -125,7 +126,31 @@ async def on_message(message: discord.Message):
     reply = result["output"]
     history.append(("human", content))
     history.append(("assistant", reply))
-    await message.channel.send(reply[:1900])
+    
+    # Include emotion based images in replies
+    tool = next((t for t in EXECUTORS[AGENT_NAME].tools if getattr(t, "name", None) == "pnl_mood"), None)
+    mood = None
+    if tool:
+        try:
+            mood = tool.invoke({})
+        except Exception:
+            mood = None
+    if not mood:
+        # cheap fallback if tool missing/errored
+        txt = reply.lower()
+        mood = "joy" if any(x in txt for x in [" up ", "+", "gains", "win", "winner"]) else \
+               "sad" if any(x in txt for x in [" down ", "-", "loss", "loser"]) else \
+               "neutral"
+    
+    img_path = pick_mood_image(AGENT_NAME, mood)
+    
+    if img_path:
+        file = discord.File(img_path, filename=os.path.basename(img_path))
+        embed = discord.Embed(description=reply[:1900])
+        embed.set_image(url=f"attachment://{os.path.basename(img_path)}")
+        await message.channel.send(embed=embed, file=file)
+    else:
+        await message.channel.send(reply[:1900])
 
 ## Create random bot small talk
 
