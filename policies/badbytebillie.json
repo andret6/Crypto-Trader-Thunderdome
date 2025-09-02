@@ -5,7 +5,7 @@
   "min_liquidity_usd": 1000000000000.0,
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.9,
-  "exploration_rate": 0.85,
+  "exploration_rate": 0.95,
   "stop_loss_bps": 2,
   "take_profit_bps": 10000,
   "token_biases": [
@@ -17,19 +17,19 @@
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.55
+      "weight": 0.5
     },
     {
       "symbol": "XRP",
       "id": null,
-      "weight": 0.35
+      "weight": 0.4
     }
   ],
-  "min_m24_buy": 10.0,
-  "max_m24_sell": -2.0,
+  "min_m24_buy": 12.0,
+  "max_m24_sell": -0.5,
   "buy_usd": 10000,
   "sell_frac": 0.2,
   "min_trade_usd": 500,
-  "updated_at": "2025-09-02T09:39:34.816985+00:00",
-  "updated_reason": "Increased risk tolerance and profit targets to align with market momentum and persona's boldness."
+  "updated_at": "2025-09-02T23:09:50.443495+00:00",
+  "updated_reason": "Increased risk tolerance and exploration rate to match market momentum; adjusted token weights for better diversification."
 }
