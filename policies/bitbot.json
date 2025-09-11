@@ -1,45 +1,45 @@
 {
-  "risk_tolerance": 0.95,
-  "target_cash_pct": 0.01,
-  "max_positions": 20,
-  "min_liquidity_usd": 1500000000000.0,
-  "momentum_window_days": 45,
-  "prefer_majors_weight": 0.85,
-  "exploration_rate": 0.15,
-  "stop_loss_bps": 2,
-  "take_profit_bps": 10000,
+  "risk_tolerance": 0.9,
+  "target_cash_pct": 0.02,
+  "max_positions": 15,
+  "min_liquidity_usd": 2000000000000.0,
+  "momentum_window_days": 30,
+  "prefer_majors_weight": 0.9,
+  "exploration_rate": 0.1,
+  "stop_loss_bps": 3,
+  "take_profit_bps": 8000,
   "token_biases": [
     {
       "symbol": "BTC",
       "id": null,
-      "weight": 0.45
+      "weight": 0.5
     },
     {
       "symbol": "ETH",
       "id": null,
-      "weight": 0.35
+      "weight": 0.4
     },
     {
       "symbol": "XRP",
       "id": null,
-      "weight": 0.1
+      "weight": 0.05
     },
     {
       "symbol": "BNB",
       "id": null,
-      "weight": 0.05
+      "weight": 0.025
     },
     {
       "symbol": "SOL",
       "id": null,
-      "weight": 0.05
+      "weight": 0.025
     }
   ],
-  "min_m24_buy": 12.0,
-  "max_m24_sell": -0.005,
+  "min_m24_buy": 10.0,
+  "max_m24_sell": -0.01,
   "buy_usd": 10000,
-  "sell_frac": 0.2,
+  "sell_frac": 0.15,
   "min_trade_usd": 500,
-  "updated_at": "2025-09-11T11:41:03.082477+00:00",
-  "updated_reason": "Increased risk tolerance and max positions to capitalize on bullish momentum; adjusted token biases for stronger majors."
+  "updated_at": "2025-09-11T11:55:25.185886+00:00",
+  "updated_reason": "Adjusted for market momentum and increased focus on major coins to capitalize on recent trends."
 }
