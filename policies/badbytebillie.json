@@ -1,13 +1,13 @@
 {
   "risk_tolerance": 0.98,
   "target_cash_pct": 0.02,
-  "max_positions": 15,
+  "max_positions": 18,
   "min_liquidity_usd": 1000000000000.0,
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.9,
   "exploration_rate": 0.85,
-  "stop_loss_bps": 1,
-  "take_profit_bps": 8000,
+  "stop_loss_bps": 3,
+  "take_profit_bps": 9000,
   "token_biases": [
     {
       "symbol": "ETH",
@@ -25,11 +25,11 @@
       "weight": 0.15
     }
   ],
-  "min_m24_buy": 12.0,
-  "max_m24_sell": -1.0,
-  "buy_usd": 8000,
+  "min_m24_buy": 10.0,
+  "max_m24_sell": -2.0,
+  "buy_usd": 9500,
   "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-09-11T12:16:06.949718+00:00",
-  "updated_reason": "Adjusted for market momentum and increased bias towards majors while maintaining risk tolerance."
+  "updated_at": "2025-09-11T23:23:32.248575+00:00",
+  "updated_reason": "Adjusted for increased risk tolerance and market momentum; slight increase in major token bias reflects current trends."
 }
