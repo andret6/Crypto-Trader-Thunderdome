@@ -1,13 +1,13 @@
 {
   "risk_tolerance": 0.9,
   "target_cash_pct": 0.02,
-  "max_positions": 18,
+  "max_positions": 15,
   "min_liquidity_usd": 1000000000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.9,
-  "exploration_rate": 0.1,
+  "prefer_majors_weight": 0.8,
+  "exploration_rate": 0.2,
   "stop_loss_bps": 3,
-  "take_profit_bps": 8000,
+  "take_profit_bps": 9500,
   "token_biases": [
     {
       "symbol": "BTC",
@@ -22,12 +22,12 @@
     {
       "symbol": "XRP",
       "id": null,
-      "weight": 0.1
+      "weight": 0.15
     },
     {
       "symbol": "BNB",
       "id": null,
-      "weight": 0.1
+      "weight": 0.05
     },
     {
       "symbol": "SOL",
@@ -37,9 +37,9 @@
   ],
   "min_m24_buy": 10.0,
   "max_m24_sell": -0.01,
-  "buy_usd": 10000,
+  "buy_usd": 8000,
   "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-09-11T10:56:13.942480+00:00",
-  "updated_reason": "Adjusted for a more aggressive trading strategy in a bullish market, increasing buy power and reducing cash reserves."
+  "updated_at": "2025-09-11T11:24:38.937817+00:00",
+  "updated_reason": "Adjusted risk and cash allocation to reflect market momentum and maintain a competitive edge."
 }
