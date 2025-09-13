@@ -1,8 +1,8 @@
 {
   "risk_tolerance": 0.9,
   "target_cash_pct": 0.02,
-  "max_positions": 20,
-  "min_liquidity_usd": 4000000000000.0,
+  "max_positions": 15,
+  "min_liquidity_usd": 5000000000000.0,
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.9,
   "exploration_rate": 0.1,
@@ -40,6 +40,6 @@
   "buy_usd": 10000,
   "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-09-13T04:27:50.499818+00:00",
-  "updated_reason": "Adjusted for higher risk appetite and market momentum, increased major token bias and trade sizes to capitalize on recent gains."
+  "updated_at": "2025-09-13T05:09:39.857359+00:00",
+  "updated_reason": "Adjusted for higher risk appetite and market momentum, increased BTC and ETH bias due to strong performance."
 }
