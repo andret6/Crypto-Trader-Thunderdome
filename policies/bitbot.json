@@ -7,7 +7,7 @@
   "prefer_majors_weight": 0.9,
   "exploration_rate": 0.1,
   "stop_loss_bps": 3,
-  "take_profit_bps": 10000,
+  "take_profit_bps": 8000,
   "token_biases": [
     {
       "symbol": "BTC",
@@ -35,11 +35,11 @@
       "weight": 0.05
     }
   ],
-  "min_m24_buy": 9.0,
-  "max_m24_sell": -0.01,
-  "buy_usd": 10000,
+  "min_m24_buy": 8.0,
+  "max_m24_sell": -0.05,
+  "buy_usd": 8000,
   "sell_frac": 0.25,
   "min_trade_usd": 500,
-  "updated_at": "2025-09-14T04:20:41.373046+00:00",
-  "updated_reason": "Adjusted for market conditions and to enhance potential gains while maintaining a solid risk profile."
+  "updated_at": "2025-09-14T04:48:26.361024+00:00",
+  "updated_reason": "Adjusted for market conditions and to reflect a more aggressive trading strategy, while still maintaining a hint of caution."
 }
