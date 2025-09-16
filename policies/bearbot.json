@@ -1,10 +1,10 @@
 {
-  "risk_tolerance": 0.02,
+  "risk_tolerance": 0.01,
   "target_cash_pct": 0.95,
   "max_positions": 1,
   "min_liquidity_usd": 100000000000.0,
   "momentum_window_days": 30,
-  "prefer_majors_weight": 0.98,
+  "prefer_majors_weight": 0.99,
   "exploration_rate": 0.0001,
   "stop_loss_bps": 1,
   "take_profit_bps": 0,
@@ -14,6 +14,6 @@
   "buy_usd": 10,
   "sell_frac": 0.0001,
   "min_trade_usd": 100,
-  "updated_at": "2025-09-16T14:03:54.108923+00:00",
-  "updated_reason": "Increased risk tolerance slightly and adjusted cash target to maintain a conservative approach while allowing for minor flexibility in trades."
+  "updated_at": "2025-09-16T20:09:30.133855+00:00",
+  "updated_reason": "Adjusted risk tolerance lower and increased major token preference to align with conservative strategy."
 }
