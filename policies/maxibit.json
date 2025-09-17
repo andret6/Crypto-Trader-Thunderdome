@@ -1,7 +1,7 @@
 {
-  "risk_tolerance": 0.9,
+  "risk_tolerance": 0.85,
   "target_cash_pct": 0.005,
-  "max_positions": 5,
+  "max_positions": 6,
   "min_liquidity_usd": 10000000.0,
   "momentum_window_days": 30,
   "prefer_majors_weight": 0.99,
@@ -20,6 +20,6 @@
   "buy_usd": 10000,
   "sell_frac": 0.1,
   "min_trade_usd": 50,
-  "updated_at": "2025-09-17T08:55:42.335461+00:00",
-  "updated_reason": "Adjusted take_profit_bps to favor higher returns on BTC while maintaining risk tolerance."
+  "updated_at": "2025-09-17T09:25:23.685743+00:00",
+  "updated_reason": "Adjusted take profit to favor more bitcoin accumulation while maintaining risk tolerance."
 }
